@@ -1,0 +1,30 @@
+{
+  "name": "hw5",
+  "version": "1.0.0",
+  "description": "The description of this assignment can be found in Canvas at [Assignment #5](https://canvas.harvard.edu/courses/35096/assignments/202461) (Spring 2018)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "start-dev": "nodemon --inspect ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarvardDCENode/assignment-4-express-routing-mongodb-mongoose-jlehegaret.git"
+  },
+  "author": "Jennifer Le Hegaret",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HarvardDCENode/assignment-4-express-routing-mongodb-mongoose-jlehegaret/issues"
+  },
+  "homepage": "https://github.com/HarvardDCENode/assignment-4-express-routing-mongodb-mongoose-jlehegaret#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "http": "0.0.0",
+    "mongoose": "^5.0.10",
+    "pug": "^2.0.1",
+    "request": "^2.85.0"
+  }
+}
