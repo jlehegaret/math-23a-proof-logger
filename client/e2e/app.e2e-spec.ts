@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('proof-logger App', () => {
+describe('client App', () => {
   let page: AppPage;
 
   beforeEach(() => {

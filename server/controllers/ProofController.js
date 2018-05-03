@@ -1,9 +1,9 @@
 // Controllers call the service and return JSON to the client
 
-var ProofServiceModule = require('../../services/ProofService');
+var ProofServiceModule = require('../services/ProofService');
 const ProofService = ProofServiceModule.ProofService;
-var ProofListenersServiceModule = require('../../services/ProofListenersService');
-const ProofService = ProofListenersServiceModule.ProofService;
+var ProofListenersServiceModule = require('../services/ProofListenersService');
+const ProofListenersService = ProofListenersServiceModule.ProofListenersService;
 
 
 exports.getAllProofs = function (req, res, next) { 

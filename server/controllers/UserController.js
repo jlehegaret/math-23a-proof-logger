@@ -1,6 +1,6 @@
 // Controllers call the service and return JSON to the client
 
-var UserServiceModule = require('../../services/UserService');
+var UserServiceModule = require('../services/UserService');
 const UserService = UserServiceModule.UserService;
 
 exports.getAllUsers = function (req, res, next) { 

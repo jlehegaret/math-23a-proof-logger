@@ -5,6 +5,7 @@ var PresentationController = require('../../controllers/PresentationController')
 
 // route handling
 
+// preliminary for all requests
 router.use( (req, res, next) => { 
     res.set({
         'Content-Type'                  : 'application/json',

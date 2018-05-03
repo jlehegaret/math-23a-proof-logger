@@ -1,6 +1,6 @@
 // Controllers call the service and return JSON to the client
 
-var PresentationServiceModule = require('../../services/PresentationService');
+var PresentationServiceModule = require('../services/PresentationService');
 const PresentationService = PresentationServiceModule.PresentationService;
 
 exports.getAllPresentations = function (req, res, next) { 
