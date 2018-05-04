@@ -4,33 +4,8 @@
     </h1>
 </div>
 
-<h2>Proofs</h2>
-
-<div *ngIf="numProofs; else noneTemplate">
-    <div class="table">
-        <div class="tr">
-            <span class="th">Proof</span>
-            <span class="th">Number of Student Listeners</span>
-        </div>
-        <app-proof *ngFor='let proofObj of proofList'
-                [proof] = "proofObj"
-        ></app-proof>
-    </div>
+<div class="container">
+   <router-outlet></router-outlet>
 </div>
 
-<h2>Class Members</h2>
 
-<div *ngIf="numUsers; else noneTemplate">
-    <div class="table">
-        <div class="tr">
-            <span class="th">Status</span>
-            <span class="th">Email</span>
-            <span class="th">Availability</span>
-        </div>
-        <app-user *ngFor='let userObj of userList'
-                [user] = "userObj"
-        ></app-user>
-        </div>
-</div>
-
-<ng-template #noneTemplate>None</ng-template>

@@ -1,3 +1,19 @@
-<span class="td">{{ user.status }}</span>
-<span class="td">{{ user.email }}</span>
-<span class="td">{{ user.availability }}</span>
+<div class="tr" *ngIf="!editing">
+    <span class="td">{{ user.status }}</span>
+    <span class="td">{{ user.email }}</span>
+    <span class="td">{{ user.availability }}</span>
+    <span class="td"><button (click)="setEditMode(true)">Edit</button></span>
+    <span class="td"><button (click)="deleteUser()">Delete</button></span>
+</div>
+
+<div *ngIf="editing">
+    <form class="tr" #form="ngForm" (ngSubmit)="updateUser(form.value)">
+        <div class="form-group">
+            <span class="td"><input #status name="statusField" [ngModel]="user.status"></span>
+            <span class="td"><input #email name="emailField" [ngModel]="user.email"></span>
+            <span class="td"><input #availability name="availabilityField" [ngModel]="user.availability"></span>
+            <span class="td"><button type="submit">Save</button></span>
+            <span class="td"><button (click)="setEditMode(false)">Cancel</button></span>
+        </div>
+    </form>
+</div>

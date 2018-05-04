@@ -3,7 +3,7 @@ div.table
     display:table;
 }
 
-app-proof, app-user, div.tr
+app-proof, app-user, div.tr, form.tr,
 {
     display:table-row;
 }

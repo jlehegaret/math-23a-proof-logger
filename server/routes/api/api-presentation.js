@@ -10,7 +10,7 @@ router.use( (req, res, next) => {
     res.set({
         'Content-Type'                  : 'application/json',
         'Access-Control-Allow-Origin'   : '*',
-        'Access-Control-Allow-Methods'  : 'GET, PUT, POST, DEL, OPTIONS',
+        'Access-Control-Allow-Methods'  : 'GET, PUT, POST, DELETE, OPTIONS',
         'Access-Control-Allow-Headers'  : 'Content-Type, Access-Control-Allow-Headers'
     });
     if (req.method == 'OPTIONS') {
