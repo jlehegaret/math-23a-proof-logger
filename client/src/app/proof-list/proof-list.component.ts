@@ -14,8 +14,18 @@ export class ProofListComponent implements OnInit {
 
     proofList = null;
     numProofs = 0;
+    adding:boolean=false;
 
     ngOnInit() {
+        this.updateProofList();
+    }
+
+    setAddingMode(mode):void{
+        this.adding = (mode ? true : false);
+    }
+
+    updateProofList():void {
+
         this.proofService.listProofs().subscribe( 
             (proofs) => {
                 this.proofList = proofs;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,  Output, EventEmitter } from '@angular/core';
 import { UserService } from '../users.service';
 
 @Component({
@@ -12,6 +12,9 @@ import { UserService } from '../users.service';
 export class UserComponent implements OnInit {
 
     @Input() user; // from app-user tag in app.component.html
+
+    // When a user is deleted, send event to parent to refresh list
+    @Output() deletedUser = new EventEmitter();
 
     editing:boolean=false;
 
@@ -29,15 +32,16 @@ export class UserComponent implements OnInit {
         this.user.availability = obj.availabilityField;
         this.userService.updateUser(this.user._id, this.user)
       .     subscribe((result)=>{
-                location.reload();
+                this.setEditMode(false);
             });
     }
 
-    // deletes user using UserService
+    // deletes user using UserService, notifies parent component
     deleteUser() {
         this.userService.deleteUser(this.user._id)
             .subscribe((result)=>{
-                window.location.reload();
+                this.deletedUser.emit();
+                this.setEditMode(false);
         });
     }
 }

@@ -1,19 +1,42 @@
-<div class="tr" *ngIf="!editing">
-    <span class="td">{{ user.status }}</span>
-    <span class="td">{{ user.email }}</span>
-    <span class="td">{{ user.availability }}</span>
-    <span class="td"><button (click)="setEditMode(true)">Edit</button></span>
-    <span class="td"><button (click)="deleteUser()">Delete</button></span>
+
+<div *ngIf="!editing">
+
+  <div style="display: inline-block; vertical-align: top; padding: 1em;">
+    <button (click)="setEditMode(true)">Edit</button>
+    <button (click)="deleteUser()">Delete</button>
+  </div>
+
+  <div style="display: inline-block; vertical-align: top; padding: 1em;">
+    <div>{{ user.status }}</div>
+    <div><b>{{ user.email }}</b></div>
+    <div>Availability: {{ user.availability }}</div>
+  </div>
+
 </div>
 
 <div *ngIf="editing">
-    <form class="tr" #form="ngForm" (ngSubmit)="updateUser(form.value)">
-        <div class="form-group">
-            <span class="td"><input #status name="statusField" [ngModel]="user.status"></span>
-            <span class="td"><input #email name="emailField" [ngModel]="user.email"></span>
-            <span class="td"><input #availability name="availabilityField" [ngModel]="user.availability"></span>
-            <span class="td"><button type="submit">Save</button></span>
-            <span class="td"><button (click)="setEditMode(false)">Cancel</button></span>
+  <form #form="ngForm">
+    <div class="form-group">
+      <div style="display: inline-block; vertical-align: top; padding: 1em;">            
+        <div><button (click)="updateUser(form.value)">Save</button>
+              <button (click)="setEditMode(false)">Cancel</button>
         </div>
-    </form>
+      </div>
+      <div style="display: inline-block; vertical-align: top; padding: 1em;">
+        <div>
+          <label for="statusField">Status:</label>
+          <input #status name="statusField" [ngModel]="user.status">
+        </div>
+        <div>
+          <label for="emailField">Email:</label>
+          <input #email name="emailField" [ngModel]="user.email">
+        </div>
+        <div>
+          <label for="availabilityField">Availability:</label>
+          <input #availability name="availabilityField" [ngModel]="user.availability">
+        </div>
+      </div>
+    </div>
+    <br>
+  </form>
 </div>

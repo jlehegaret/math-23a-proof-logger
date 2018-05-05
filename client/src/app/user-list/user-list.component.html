@@ -1,18 +1,22 @@
 <h2>Class Members</h2>
 
 <div *ngIf="numUsers; else noneTemplate">
-    <div class="table">
-        <div class="tr">
-            <span class="th">Status</span>
-            <span class="th">Email</span>
-            <span class="th">Availability</span>
-            <span class="th"></span>
-            <span class="th"></span>
-        </div>
-        <app-user *ngFor='let userObj of userList'
-                [user] = "userObj">
-        </app-user>
-    </div>
+
+    <app-user *ngFor='let userObj of userList'
+                [user] = "userObj"
+                (deletedUser) = "updateUserList()">
+    </app-user>
+
 </div>
 
 <ng-template #noneTemplate>None</ng-template>
+
+<div *ngIf="!adding">
+    <button (click)="setAddUserMode(true)">Add New User</button>
+</div>
+
+<div *ngIf="adding">
+    <app-newuser (newUser)="updateUserList()"
+                 (cancelNewUserEv)= "setAddUserMode(false)">
+    </app-newuser>
+</div>

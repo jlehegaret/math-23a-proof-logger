@@ -1,2 +1,33 @@
-<span class="td">{{ proof.name }}</span>
-<span class="td" style="text-align:center">{{ proof.qualifiedListeners.length }}</span>
+<div *ngIf="!editing">
+
+  <div style="display: inline-block; vertical-align: top; padding: 1em;">
+    <button (click)="setEditMode(true)">Edit</button>
+    <button (click)="deleteProof()">Delete</button>
+  </div>
+
+  <div style="display: inline-block; vertical-align: top; padding: 1em;">
+    <div><b>{{ proof.name }}</b>, # Qualified Listeners: {{ proof.qualifiedListeners.length }}</div>
+    <div></div>
+  </div>
+
+</div>
+
+<div *ngIf="editing">
+  <form #form="ngForm">
+    <div class="form-group">
+      <div style="display: inline-block; vertical-align: top; padding: 1em;">            
+        <div><button (click)="updateProof(form.value)">Save</button>
+              <button (click)="setEditMode(false)">Cancel</button>
+        </div>
+      </div>
+      <div style="display: inline-block; vertical-align: top; padding: 1em;">
+        <div>
+          <label for="nameField">Proof Name:</label>
+          <input #name name="nameField" [ngModel]="proof.name">
+        </div>
+        <div># Qualified Listeners: {{ proof.qualifiedListeners.length }}</div>
+      </div>
+    </div>
+    <br>
+  </form>
+</div>

@@ -15,11 +15,18 @@ export class UserListComponent implements OnInit {
 
     userList = null;
     numUsers = 0;
-    newEmail = "";
-    newStatus = "";
+    adding:boolean=false;
 
     ngOnInit() {
+        this.updateUserList();
+    }
 
+    setAddUserMode(mode):void {
+console.log("Setting setAddUserMode to " + mode);
+        this.adding = (mode ? true : false);
+    }
+
+    updateUserList():void {
         this.userService.listUsers().subscribe( 
             (users) => {
                 this.userList = users;
@@ -42,16 +49,7 @@ export class UserListComponent implements OnInit {
                         }
                 });
                 this.numUsers = this.userList.length;
-        });
-    }
-
-    // add user using UserService
-    addUser() {
-        this.userService.addUser(this.newEmail, this.newStatus)
-            .subscribe((result)=>{
-                        window.location.reload();
             });
-        }
     }
 
 }

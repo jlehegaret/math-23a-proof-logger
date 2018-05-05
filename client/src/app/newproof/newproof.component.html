@@ -1,0 +1,14 @@
+<form #form="ngForm" (ngSubmit)="save(form)">
+    <div style="display: inline-block; 
+                vertical-align: top; padding: 1em;">            
+        <button type="submit">Save</button>
+        <button (click)="cancelNew(form)">Cancel</button>
+    </div>
+
+    <div style="display: inline-block; vertical-align: top; padding: 1em;">
+      <div>
+        <label for="nameField">Name:</label>
+        <input name="nameField" [(ngModel)]="proof.name">
+      </div>
+    </div>
+</form>

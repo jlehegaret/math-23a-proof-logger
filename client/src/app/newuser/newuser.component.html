@@ -1,0 +1,18 @@
+<form #form="ngForm" (ngSubmit)="save(form)">
+    <div style="display: inline-block; 
+                vertical-align: top; padding: 1em;">            
+        <button type="submit">Save</button>
+        <button (click)="cancelNewUser(form)">Cancel</button>
+    </div>
+
+    <div style="display: inline-block; vertical-align: top; padding: 1em;">
+      <div>
+        <label for="statusField">Status:</label>
+        <input name="statusField" placeholder="Head, TA, or Student" [(ngModel)]="user.status">
+      </div>
+      <div>
+        <label for="emailField">Email:</label>
+        <input name="emailField"  [(ngModel)]="user.email">
+      </div>
+    </div>
+</form>

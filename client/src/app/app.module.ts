@@ -5,13 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ProofComponent } from './proof/proof.component';
-import { UserComponent } from './user/user.component';
 import { ProofListComponent } from './proof-list/proof-list.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { ProofComponent } from './proof/proof.component';
+import { UserComponent } from './user/user.component';
+import { NewProofComponent } from './newproof/newproof.component';
+import { NewUserComponent } from './newuser/newuser.component';
+
 
 const routes: Routes = [
-  { path: '', redirectTo: '/proofs', pathMatch: 'full'},
+  { path: '', redirectTo: '/users', pathMatch: 'full'},
   { path: 'proofs', component: ProofListComponent },
   { path: 'users', component: UserListComponent }
 ]
@@ -22,7 +25,9 @@ const routes: Routes = [
     ProofComponent,
     UserComponent,
     ProofListComponent,
-    UserListComponent
+    UserListComponent,
+    NewProofComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,
