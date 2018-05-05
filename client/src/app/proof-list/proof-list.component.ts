@@ -39,5 +39,6 @@ export class ProofListComponent implements OnInit {
                 });
                 this.numProofs = this.proofList.length;
         });
+        this.setAddingMode(false);
     }
 }

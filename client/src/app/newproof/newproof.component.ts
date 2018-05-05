@@ -23,17 +23,13 @@ export class NewProofComponent implements OnInit {
 
   // html form triggers this event via submit
   save(form) : void {
-    if(this.proof.name != "") {
+
       // add proof, then notify parent of updated list
       this.proofService.addProof(this.proof.name)
           .subscribe( (proof) => {
               this.newProof.emit();
               form.reset();
           });
-    } else { // TO DO - ADD ERROR MESSAGE
-      this.cancelNewProof.emit();
-      form.reset();
-    }
   }
 
   // html form triggers this event via Cancel button

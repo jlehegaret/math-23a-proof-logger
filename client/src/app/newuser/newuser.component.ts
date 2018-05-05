@@ -23,9 +23,6 @@ export class NewUserComponent implements OnInit {
 
   // newuser html form triggers this event via submit
   save(form) : void {
-console.log("in SAVE function for newuser");
-    if(this.user.email != null &&  this.user.status != null
-      && this.user.email != "" &&  this.user.status != "") {
 
       // add user, then notify parent of updated list
       this.userService.addUser(this.user.email, this.user.status)
@@ -33,16 +30,10 @@ console.log("in SAVE function for newuser");
             this.newUser.emit();
             form.reset();
         });
-    } else { // TODO: ERROR MESSAGING
-console.log("Supposedly cancelling new user");
-        this.cancelNewUserEv.emit();
-        form.reset();
-    }
   }
 
   // html form triggers this event via Cancel button
   cancelNewUser(form) : void {
-console.log("Triggering cancelNewUserEv");
       this.cancelNewUserEv.emit();
       form.reset();
   }

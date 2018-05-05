@@ -22,7 +22,6 @@ export class UserListComponent implements OnInit {
     }
 
     setAddUserMode(mode):void {
-console.log("Setting setAddUserMode to " + mode);
         this.adding = (mode ? true : false);
     }
 
@@ -50,6 +49,7 @@ console.log("Setting setAddUserMode to " + mode);
                 });
                 this.numUsers = this.userList.length;
             });
+        this.setAddUserMode(false);
     }
 
 }
