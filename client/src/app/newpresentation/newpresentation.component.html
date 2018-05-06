@@ -1,3 +1,18 @@
-<p>
-  newpresentation works!
-</p>
+<form #form="ngForm" (ngSubmit)="save(form)">
+
+    <div style="display: inline-block; vertical-align: top; padding: 1em;">
+      <div>
+        <label for="proofField">Proof:</label>
+        <input name="proofField" [(ngModel)]="newPresentation.proofID">
+      </div>
+      <div>
+        <label for="nameField">Presented To:</label>
+        <input name="nameField" [(ngModel)]="newPresentation.listenerID">
+      </div>
+    </div>
+    <div style="display: inline-block; 
+                vertical-align: top; padding: 1em;">            
+        <button type="submit">Save</button>
+        <button (click)="cancelNew(form)">Cancel</button>
+    </div>
+</form>

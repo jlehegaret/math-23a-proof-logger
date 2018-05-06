@@ -13,7 +13,7 @@ import { NewProofComponent } from './newproof/newproof.component';
 import { NewUserComponent } from './newuser/newuser.component';
 import { UserDashboardComponent } from './userdashboard/userdashboard.component';
 import { PresentationComponent } from './presentation/presentation.component';
-import { NewpresentationComponent } from './newpresentation/newpresentation.component';
+import { NewPresentationComponent } from './newpresentation/newpresentation.component';
 
 
 const routes: Routes = [
@@ -34,7 +34,7 @@ const routes: Routes = [
     NewUserComponent,
     UserDashboardComponent,
     PresentationComponent,
-    NewpresentationComponent
+    NewPresentationComponent
   ],
   imports: [
     BrowserModule,

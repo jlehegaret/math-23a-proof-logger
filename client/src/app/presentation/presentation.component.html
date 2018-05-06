@@ -1,3 +1,23 @@
-<p>
-  presentation works!
-</p>
+<div *ngIf="mode == 'listened_pending'">
+
+  <div style="display: inline-block; vertical-align: top; padding: 1em;">  
+    <button (click)="confirmListened()">Confirm</button>
+  </div>
+
+  <div style="display: inline-block; vertical-align: top; padding: 1em;">
+    {{presentation.presenterID}}, {{presentation.proofID}}  <i>({{presentation.date_presented.substring(0, 10)}})</i>
+  </div>
+  <br>
+</div>
+
+<div *ngIf="mode == 'presented_pending'">
+  {{presentation.proofID}} presented to {{presentation.listenerID}} <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
+</div>
+
+<div *ngIf="mode == 'presented_confirmed'">
+  {{presentation.proofID}} presented to {{presentation.listenerID}} <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
+</div>
+
+<div *ngIf="mode == 'listened_confirmed'">
+  {{presentation.presenterID}}, {{presentation.proofID}}  <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
+</div>

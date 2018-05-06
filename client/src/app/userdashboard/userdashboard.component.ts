@@ -20,6 +20,7 @@ export class UserDashboardComponent implements OnInit {
 
   user:any = {'email': ''};  // will be fetched from UserService
   proofs:any;     // list of all class proofs
+  adding:boolean=false;
 
   // this user's presented & confirmed pres.
   presented_confirmed:any; 
@@ -41,11 +42,15 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit() {  
     this.getUser(); 
-    this.getPresentedConfirmed();
-    this.getPresentedPending();
-    this.getListenedConfirmed();
-    this.getListenedPending();
-    this.getProofs();
+    this.updatePresentedConfirmed();
+    this.updatePresentedPending();
+    this.updateListenedConfirmed();
+    this.updateListenedPending();
+    this.updateProofs();
+  }
+
+  setAdding(mode):void{
+      this.adding = (mode ? true : false);
   }
 
   // reads URL to get correct user's info
@@ -57,61 +62,90 @@ export class UserDashboardComponent implements OnInit {
         });
   }
 
-  // gets collection of Proofs - TODO: filter out already-presented ones
-  getProofs(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.proofService.listProofs()
-        .subscribe( (proofs) => {
-          this.proofs = proofs;
-        });
-  }
-
   // gets collection of Presentations, adds more readable info
-  getPresentedConfirmed(): void {
+  updatePresentedConfirmed(): void {
+
     const id = this.route.snapshot.paramMap.get('id');
-    this.presentationService.getPresentedConfirmed(id)
+
+    this.presentationService
+        .getPresentedConfirmed(id)
         .subscribe( (results) => {
-          // ADD MORE READABLE INFO HERE
 
           this.presented_confirmed = results;
           this.num_presented_confirmed = this.presented_confirmed.length;
-        
+
+          // enrich with human-readable info
+          for (let pres of this.presented_confirmed) {
+
+            this.userService.getUser(pres.presenterID)
+                .subscribe( (user) => {
+                    pres.presenter = user;
+                    console.log(user);
+                });
+
+            this.userService.getUser(pres.listenerID)
+                .subscribe( (user) => {
+                    pres.listener = user;
+                    console.log(user);
+                });
+
+            this.proofService.getProof(pres.proofID)
+                .subscribe( (proof) => {
+                    pres.proof = proof;
+                    console.log(proof);
+                });
+          }       
         });
   }
 
   // gets collection of Presentations, adds more readable info
-  getPresentedPending(): void {
+  updatePresentedPending(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.presentationService.getPresentedPending(id)
         .subscribe( (results) => {
-          // ADD MORE READABLE INFO HERE
-
           this.presented_pending = results;
           this.num_presented_pending = this.presented_pending.length;
         });
   }
 
   // gets collection of Presentations, adds more readable info
-  getListenedConfirmed(): void {
+  updateListenedConfirmed(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.presentationService.getListenedConfirmed(id)
         .subscribe( (results) => {
-          // ADD MORE READABLE INFO HERE
-
           this.listened_confirmed = results;
           this.num_listened_confirmed = this.listened_confirmed.length;
         });
   }
 
   // gets collection of Presentations, adds more readable info
-  getListenedPending(): void {
+  updateListenedPending(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.presentationService.getListenedPending(id)
         .subscribe( (results) => {
-          // ADD MORE READABLE INFO HERE
-
           this.listened_pending = results;
           this.num_listened_pending = this.listened_pending.length;
+        });
+  }
+
+  // updates both listening groups when a listen is confirmed
+  updateListened() : void {
+      this.updateListenedPending();
+      this.updateListenedConfirmed();
+  }
+
+  // updates presented group and proofs list when a new pres is registered
+  updatePresented() : void {
+      this.updatePresentedPending();
+      this.updateProofs();
+  }
+
+  // gets collection of Proofs - TODO: filter out already-presented ones
+  updateProofs(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.proofService.listProofs()
+        .subscribe( (proofs) => {
+          this.proofs = proofs;
         });
   }
 

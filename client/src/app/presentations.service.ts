@@ -15,22 +15,22 @@ export class PresentationService {
 
     getPresentedPending(id:string) {
         return this.http.get(this.apiUrl 
-            + "/presentations/presented-pending/user/" + id);
+            + "/presentations/presentedpending/user/" + id);
     }
 
     getPresentedConfirmed(id:string) {
         return this.http.get(this.apiUrl 
-            + "/presentations/presented-confirmed/user/" + id);
+            + "/presentations/presentedconfirmed/user/" + id);
     }
 
     getListenedPending(id:string) {
         return this.http.get(this.apiUrl 
-            + "/presentations/listened-pending/user/" + id);
+            + "/presentations/listenedpending/user/" + id);
     }
 
     getListenedConfirmed(id:string) {
         return this.http.get(this.apiUrl 
-            + "/presentations/listened-confirmed/user/" + id);
+            + "/presentations/listenedconfirmed/user/" + id);
     }
 
     getPresentation(id:string) {

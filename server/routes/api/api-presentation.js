@@ -24,22 +24,22 @@ router.get('/', PresentationController.getAllPresentations);
 
 // at "url/api/presentations/presented-pending/user/userID" 
 //  - list specific user's presented, still-pending presentations
-router.get('/presented-pending/user/:userID', 
+router.get('/presentedpending/user/:userID', 
             PresentationController.getPresentedPending);
 
 // at "url/api/presentations/presented-confirmed/user/userID" 
 //  - list specific user's presented & confirmed presentations
-router.get('/presented-confirmed/user/:userID', 
+router.get('/presentedconfirmed/user/:userID', 
             PresentationController.getPresentedConfirmed);
 
 // at "url/api/presentations/listened-pending/user/userID/" 
 //  - list specific user's list of pending listened-to presentations
-router.get('listened-pending/user/:userID', 
+router.get('/listenedpending/user/:userID', 
             PresentationController.getListenedPending);
 
 // at "url/api/presentations/listened-confirmed/user/userID" 
 //  - list specific user's list of confirmed listened-to presentations
-router.get('listened-confirmed/user/:userID', 
+router.get('/listenedconfirmed/user/:userID', 
             PresentationController.getListenedConfirmed);
 
 // at "url/api/presentations" - add a new presentation

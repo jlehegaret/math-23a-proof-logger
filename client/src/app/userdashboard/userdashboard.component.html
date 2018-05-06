@@ -1,36 +1,72 @@
 <h2>Hello, {{ user.email }}</h2>
 
-<h2>Your Proofs</h2>
-
-<h3>Register a newly presented proof</h3>
-
-TO DO
-
+<div *ngIf="user.status == 'Student'; else staffTemplate">
+    <h2>Your Proofs</h2>
+    
+    <h3>Register a newly presented proof</h3>
+    
+    <div *ngIf="!adding">
+        <button (click)="setAdding(true)">Register New Presentation</button>
+    </div>
+    
+    <div *ngIf="adding">
+        <app-newpresentation [user]="user" 
+                            (newPres)="updatePresented()"
+                            (cancelNewPres)= "setAdding(false)">
+        </app-newpresentation>
+    </div>
+</div>
 
 <div *ngIf="num_listened_pending">
     <h3>Confirm listening</h3>
 
     <app-presentation *ngFor='let presObj of listened_pending'
                 [presentation] = "presObj"
-                [mode] = "l_p">
+                mode = "listened_pending" (confirmed)="updateListened()">
     </app-presentation>
 
 </div>
 
-<div *ngIf="num_presented_pending">
-    <h3>Presented <i>(pending confirmation)</i></h3>
+<div *ngIf="user.status == 'Student'">
 
-</div>
-
-<div *ngIf="num_presented_confirmed; else noneTemplate">
+    <div *ngIf="num_presented_pending">
+        <h3>Presented <i>(pending confirmation)</i></h3>
+    
+        <app-presentation *ngFor='let presObj of presented_pending'
+                    [presentation] = "presObj"
+                    mode = "presented_pending">
+        </app-presentation>
+    
+    </div>
+    
     <h3>Presented</h3>
-
+    <div *ngIf="num_presented_confirmed; else noneTemplate">
+    
+        <app-presentation *ngFor='let presObj of presented_confirmed'
+                    [presentation] = "presObj"
+                    mode = "presented_confirmed">
+        </app-presentation>
+    
+    </div>
 </div>
 
+<h3>Listened to</h3>
 <div *ngIf="num_listened_confirmed; else noneTemplate">
-    <h3>Listened to</h3>
+
+    <app-presentation *ngFor='let presObj of listened_confirmed'
+                [presentation] = "presObj"
+                mode = "listened_confirmed">
+    </app-presentation>
 
 </div>
+
+<ng-template #staffTemplate>
+    <h2>Staff Dashboard</h2>
+
+    <h3>Course Management</h3>
+    <p><a routerLink="/users">Class List</a></p>
+    <p><a routerLink="/proofs">Proof List</a></p>
+</ng-template>
 
 <ng-template #noneTemplate>None</ng-template>
 
