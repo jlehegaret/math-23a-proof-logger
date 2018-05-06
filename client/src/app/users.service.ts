@@ -14,7 +14,7 @@ export class UserService {
     }
 
     getUser(id:string) {
-        return this.http.get(this.apiUrl + "/user/" + id);
+        return this.http.get(this.apiUrl + "/users/" + id);
     }
 
     addUser(email:string, status:string) {

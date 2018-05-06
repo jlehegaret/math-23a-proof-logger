@@ -8,7 +8,7 @@
 
   <div style="display: inline-block; vertical-align: top; padding: 1em;">
     <div>{{ user.status }}</div>
-    <div><b>{{ user.email }}</b></div>
+    <div><b><a routerLink="/users/{{user._id}}">{{ user.email }}</a></b></div>
     <div>Availability: {{ user.availability }}</div>
   </div>
 

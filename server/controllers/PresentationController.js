@@ -14,6 +14,59 @@ exports.getAllPresentations = function (req, res, next) {
             });
 };
 
+exports.getPresentedPending = function (req, res, next) { 
+
+console.log("in server controller getPP");
+        PresentationService.list_p_p(req.params.userID)
+            .then((presentations) => {
+                res.status(200);
+                res.send(JSON.stringify(presentations));
+            }).catch( (err) => {
+                res.status(404);
+                res.end();
+            });
+};
+
+
+exports.getPresentedConfirmed = function (req, res, next) { 
+
+console.log("in server controller getPC");
+        PresentationService.list_p_c(req.params.userID)
+            .then((presentations) => {
+                res.status(200);
+                res.send(JSON.stringify(presentations));
+            }).catch( (err) => {
+                res.status(404);
+                res.end();
+            });
+};
+
+exports.getListenedPending = function (req, res, next) { 
+
+console.log("in server controller getLP");
+        PresentationService.list_l_p(req.params.userID)
+            .then((presentations) => {
+                res.status(200);
+                res.send(JSON.stringify(presentations));
+            }).catch( (err) => {
+                res.status(404);
+                res.end();
+            });
+};
+
+exports.getListenedConfirmed = function (req, res, next) { 
+
+console.log("in server controller getLC");
+        PresentationService.list_l_c(req.params.userID)
+            .then((presentations) => {
+                res.status(200);
+                res.send(JSON.stringify(presentations));
+            }).catch( (err) => {
+                res.status(404);
+                res.end();
+            });
+};
+
 exports.addPresentation = function (req, res, next) {
         PresentationService.create(req.body.presenterID, 
                                    req.body.listenerID, 

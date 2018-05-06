@@ -11,12 +11,16 @@ import { ProofComponent } from './proof/proof.component';
 import { UserComponent } from './user/user.component';
 import { NewProofComponent } from './newproof/newproof.component';
 import { NewUserComponent } from './newuser/newuser.component';
+import { UserDashboardComponent } from './userdashboard/userdashboard.component';
+import { PresentationComponent } from './presentation/presentation.component';
+import { NewpresentationComponent } from './newpresentation/newpresentation.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/users', pathMatch: 'full'},
   { path: 'proofs', component: ProofListComponent },
-  { path: 'users', component: UserListComponent }
+  { path: 'users', component: UserListComponent },
+  { path: 'users/:id', component: UserDashboardComponent }
 ]
 
 @NgModule({
@@ -27,7 +31,10 @@ const routes: Routes = [
     ProofListComponent,
     UserListComponent,
     NewProofComponent,
-    NewUserComponent
+    NewUserComponent,
+    UserDashboardComponent,
+    PresentationComponent,
+    NewpresentationComponent
   ],
   imports: [
     BrowserModule,

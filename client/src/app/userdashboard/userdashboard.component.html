@@ -1,0 +1,36 @@
+<h2>Hello, {{ user.email }}</h2>
+
+<h2>Your Proofs</h2>
+
+<h3>Register a newly presented proof</h3>
+
+TO DO
+
+
+<div *ngIf="num_listened_pending">
+    <h3>Confirm listening</h3>
+
+    <app-presentation *ngFor='let presObj of listened_pending'
+                [presentation] = "presObj"
+                [mode] = "l_p">
+    </app-presentation>
+
+</div>
+
+<div *ngIf="num_presented_pending">
+    <h3>Presented <i>(pending confirmation)</i></h3>
+
+</div>
+
+<div *ngIf="num_presented_confirmed; else noneTemplate">
+    <h3>Presented</h3>
+
+</div>
+
+<div *ngIf="num_listened_confirmed; else noneTemplate">
+    <h3>Listened to</h3>
+
+</div>
+
+<ng-template #noneTemplate>None</ng-template>
+
