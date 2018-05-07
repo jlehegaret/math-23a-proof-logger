@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 mongoose.connect("mongodb://" + process.env.DB_USER 
                 + ":" 
                 + process.env.DB_PWD
-                + "@prooflogger-shard-00-00-uumrd.mongodb.net:27017,prooflogger-shard-00-01-uumrd.mongodb.net:27017,prooflogger-shard-00-02-uumrd.mongodb.net:27017/hw5?ssl=true&replicaSet=ProofLogger-shard-0&authSource=admin");
+                + "@prooflogger-shard-00-00-uumrd.mongodb.net:27017,prooflogger-shard-00-01-uumrd.mongodb.net:27017,prooflogger-shard-00-02-uumrd.mongodb.net:27017/hw7?ssl=true&replicaSet=ProofLogger-shard-0&authSource=admin");
 
 // route handling
 app.use("/api/presentations", api_presentations);

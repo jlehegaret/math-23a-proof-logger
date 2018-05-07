@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PresentationService } from '../presentations.service';
+import { UserService } from '../users.service';
+import { ProofService } from '../proofs.service';
 
 @Component({
   selector: 'app-presentation',
   templateUrl: './presentation.component.html',
   styleUrls: ['./presentation.component.css'],
-  providers: [PresentationService]
+  providers: [PresentationService, UserService, ProofService]
 })
 export class PresentationComponent implements OnInit {
 
@@ -20,7 +22,10 @@ export class PresentationComponent implements OnInit {
   // need to update both pending and confirmed lists
   @Output() confirmed = new EventEmitter(); 
 
-  constructor(private presentationService:PresentationService) {}
+  constructor(private presentationService:PresentationService,
+              private userService:UserService,
+              private proofService:ProofService) {
+  }
 
   ngOnInit() {}
 

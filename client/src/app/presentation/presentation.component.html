@@ -5,19 +5,19 @@
   </div>
 
   <div style="display: inline-block; vertical-align: top; padding: 1em;">
-    {{presentation.presenterID}}, {{presentation.proofID}}  <i>({{presentation.date_presented.substring(0, 10)}})</i>
+    {{presentation.presenter.email}}, {{presentation.proof.name}}  <i>({{presentation.date_presented.substring(0, 10)}})</i>
   </div>
   <br>
 </div>
 
 <div *ngIf="mode == 'presented_pending'">
-  {{presentation.proofID}} presented to {{presentation.listenerID}} <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
+  {{presentation.proof.name}} presented to {{presentation.listener.email}} <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
 </div>
 
 <div *ngIf="mode == 'presented_confirmed'">
-  {{presentation.proofID}} presented to {{presentation.listenerID}} <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
+  {{presentation.proof.name}} presented to {{presentation.listener.email}} <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
 </div>
 
 <div *ngIf="mode == 'listened_confirmed'">
-  {{presentation.presenterID}}, {{presentation.proofID}}  <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
+  {{presentation.presenter.email}}, {{presentation.proof.name}}  <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
 </div>

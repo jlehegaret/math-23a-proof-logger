@@ -4,9 +4,9 @@
 var mongoose = require("mongoose");
 
 var schema = mongoose.Schema({
-    presenterID     : mongoose.Schema.Types.ObjectId,
-    listenerID      : mongoose.Schema.Types.ObjectId,
-    proofID         : mongoose.Schema.Types.ObjectId,
+    presenter     : { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    listener      : { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    proof         : { type: mongoose.Schema.Types.ObjectId, ref: 'Proof' },
     date_presented  : { type: Date,   default:  Date.now },
     status          : { type: String, default: 'pending' }
 });

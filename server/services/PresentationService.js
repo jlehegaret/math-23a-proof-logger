@@ -14,7 +14,9 @@ class PresentationService {
 
     // list all
     static list() {
+        console.log("in list all");
         return Presentation.find({})
+                           .populate('presenter listener proof')
             .then((presentations)=>{
                 return presentations;
         });
@@ -25,7 +27,8 @@ class PresentationService {
         if (typeof userID === 'string') {
             userID = mongoose.Types.ObjectId(userID);
         }
-        return Presentation.find({presenterID: userID, status: 'pending'})
+        return Presentation.find({presenter: userID, status: 'pending'})
+                           .populate('presenter listener proof')
             .then((presentations)=>{
                 return presentations;
         });
@@ -36,7 +39,8 @@ class PresentationService {
         if (typeof userID === 'string') {
             userID = mongoose.Types.ObjectId(userID);
         }
-        return Presentation.find({presenterID: userID, status: 'confirmed'})
+        return Presentation.find({presenter: userID, status: 'confirmed'})
+                           .populate('presenter listener proof')
             .then((presentations)=>{
                 return presentations;
         });
@@ -47,7 +51,8 @@ class PresentationService {
         if (typeof userID === 'string') {
             userID = mongoose.Types.ObjectId(userID);
         }
-        return Presentation.find({presenterID: userID, status: 'denied'})
+        return Presentation.find({presenter: userID, status: 'denied'})
+                           .populate('presenter listener proof')
             .then((presentations)=>{
                 return presentations;
         });
@@ -58,7 +63,8 @@ class PresentationService {
         if (typeof userID === 'string') {
             userID = mongoose.Types.ObjectId(userID);
         }
-        return Presentation.find({listenerID: userID, status: 'pending'})
+        return Presentation.find({listener: userID, status: 'pending'})
+                           .populate('presenter listener proof')
             .then((presentations)=>{
                 return presentations;
         });
@@ -69,7 +75,8 @@ class PresentationService {
         if (typeof userID === 'string') {
             userID = mongoose.Types.ObjectId(userID);
         }
-        return Presentation.find({listenerID: userID, status: 'confirmed'})
+        return Presentation.find({listener: userID, status: 'confirmed'})
+                           .populate('presenter listener proof')
             .then((presentations)=>{
                 return presentations;
         });
@@ -78,6 +85,7 @@ class PresentationService {
     //  list one presentation
     static read(id) {
         return Presentation.findById(id)
+                           .populate('presenter listener proof')
             .then((presentation)=>{
                 return presentation;
         });
@@ -95,13 +103,16 @@ class PresentationService {
         if (typeof proofID === 'string') {
             proofID = mongoose.Types.ObjectId(proofID);
         }
+
         var currPres = new Presentation({
-            'presenterID'         : presenterID,
-            'listenerID'          : listenerID,
-            'proofID'             : proofID
+            'presenter' : presenterID,
+            'listener'  : listenerID,
+            'proof'     : proofID
         });
+
         return currPres.save()
                 .then((presentation) => {
+
                     return presentation;
                 });
     }
@@ -115,8 +126,8 @@ class PresentationService {
             }).then((presentation) => {
                 // if Proof has a new qualified listener, note that,too
                 if (status == "confirmed") {
-                    return ListenersService.create(presentation.proofID, 
-                                            presentation.presenterID)
+                    return ListenersService.create(presentation.proof._id, 
+                                            presentation.presenter._id)
                             .then((listeners) => { return presentation; });
                 } else {
                     return presentation;

@@ -8,6 +8,7 @@ class ProofService {
     // list all
     static list() {
         return Proof.find({})
+                    .populate('qualifiedListeners')
             .then((proofs)=>{
                 return proofs;
         });
@@ -16,6 +17,7 @@ class ProofService {
     //  list one
     static read(id) {
         return Proof.findById(id)
+                    .populate('qualifiedListeners')
             .then((proof)=>{
                 return proof;
         });
@@ -24,6 +26,7 @@ class ProofService {
     //  create
     static create(proofName) {
         return Proof.findOne({name : proofName})
+                    .populate('qualifiedListeners')
              .then((exists) => {
                 if (exists == null) {
                     var currProof = new Proof({ 'name' : proofName });
@@ -44,7 +47,9 @@ class ProofService {
             (err, proof) => {
                 proof.name = name;
                 proof.save();
-            }).then((proof) => {
+            })
+                    .populate('qualifiedListeners')
+                    .then((proof) => {
                 return proof;
         });
     }

@@ -5,7 +5,8 @@ var mongoose = require("mongoose");
 
 var schema = mongoose.Schema({
     name                : String,
-    qualifiedListeners  : [mongoose.Schema.Types.ObjectId]
+    qualifiedListeners  : [ { type: mongoose.Schema.Types.ObjectId, 
+                              ref: 'User' },]
 });
 
 module.exports = mongoose.model("Proof", schema);

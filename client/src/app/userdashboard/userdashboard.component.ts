@@ -70,31 +70,8 @@ export class UserDashboardComponent implements OnInit {
     this.presentationService
         .getPresentedConfirmed(id)
         .subscribe( (results) => {
-
           this.presented_confirmed = results;
           this.num_presented_confirmed = this.presented_confirmed.length;
-
-          // enrich with human-readable info
-          for (let pres of this.presented_confirmed) {
-
-            this.userService.getUser(pres.presenterID)
-                .subscribe( (user) => {
-                    pres.presenter = user;
-                    console.log(user);
-                });
-
-            this.userService.getUser(pres.listenerID)
-                .subscribe( (user) => {
-                    pres.listener = user;
-                    console.log(user);
-                });
-
-            this.proofService.getProof(pres.proofID)
-                .subscribe( (proof) => {
-                    pres.proof = proof;
-                    console.log(proof);
-                });
-          }       
         });
   }
 
@@ -148,7 +125,6 @@ export class UserDashboardComponent implements OnInit {
           this.proofs = proofs;
         });
   }
-
 }
 
 
