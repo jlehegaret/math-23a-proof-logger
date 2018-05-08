@@ -18,6 +18,11 @@ export class PresentationService {
         return this.http.get(this.apiUrl + "/presentations");
     }
 
+    getByProof(id:string) {
+        return this.http.get(this.apiUrl 
+            + "/presentations/proof/" + id);
+    }
+
     getPresentedPending(id:string) {
         return this.http.get(this.apiUrl 
             + "/presentations/presentedpending/user/" + id);

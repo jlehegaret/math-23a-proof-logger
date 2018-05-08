@@ -30,6 +30,11 @@ router.use( (req, res, next) => {
 // at "url/api/presentations" - list all
 router.get('/', PresentationController.getAllPresentations);
 
+// at "url/api/presentations/proof/proofID" 
+//  - list all presentations of a certain proof
+router.get('/proof/:proofID', 
+            PresentationController.getPresentedByProof);
+
 // at "url/api/presentations/presentedpending/user/userID" 
 //  - list specific user's presented, still-pending presentations
 router.get('/presentedpending/user/:userID', 

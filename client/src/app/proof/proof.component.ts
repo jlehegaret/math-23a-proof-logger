@@ -6,12 +6,13 @@
 
 import { Component, OnInit, Input,  Output, EventEmitter } from '@angular/core';
 import { ProofService } from '../proofs.service';
+import { PresentationService } from '../presentations.service';
 
 @Component({
   selector: 'app-proof',
   templateUrl: './proof.component.html',
   styleUrls: ['./proof.component.css'],
-  providers: [ProofService]
+  providers: [ProofService, PresentationService]
 })
 
 export class ProofComponent implements OnInit {
@@ -25,7 +26,8 @@ export class ProofComponent implements OnInit {
     editing:boolean=false;        
     showListeners:boolean= false;
 
-    constructor(private proofService: ProofService) {}
+    constructor(private proofService: ProofService,
+                private presentationService: PresentationService) {}
 
     ngOnInit() {
         // sort listeners in order of email address
@@ -53,17 +55,51 @@ export class ProofComponent implements OnInit {
     updateProof(obj:any):void {
         this.proof.name = obj.nameField;
         this.proofService.updateProof(this.proof._id, this.proof.name)
-      .     subscribe((result)=>{
+            .subscribe((result)=>{
                 this.setEditMode(false);
             });
     }
 
     // delete proof using ProofService, notify parent component
+    //   and delete all presentations of this proof as well!
     deleteProof() {
-        this.proofService.deleteProof(this.proof._id)
-            .subscribe((result)=>{
-                this.deletedProof.emit();
-                this.setEditMode(false);
+
+        let deleteP:boolean;
+        let pList:any = [];
+        let message:string;
+
+        deleteP = true;
+
+        this.presentationService.getByProof(this.proof._id)
+            .subscribe( (results) => {
+            
+            pList = results;    
+            if( pList.length > 0) {
+                message = "There are already " + pList.length 
+                    + " presentations for this proof. "
+                    + "Are you sure you want to delete it?"; 
+                if (!confirm(message)){
+                    deleteP = false;
+                }
+            }
+            if(deleteP) {
+                // delete any presentations
+                for (let i = 0; i < pList.length; i++) {
+                    this.presentationService
+                        .deletePresentation(pList[i]._id)
+                        .subscribe((result)=>{
+                            console.log("Deleted " + pList[i].presenter.email 
+                                + "'s presentation");    
+                    });
+                }
+
+                // delete the proof itself
+                this.proofService.deleteProof(this.proof._id)
+                    .subscribe((result)=>{
+                        this.deletedProof.emit();
+                        this.setEditMode(false);
+                });
+            }
         });
     }
 }

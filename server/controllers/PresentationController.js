@@ -15,6 +15,18 @@ exports.getAllPresentations = function (req, res, next) {
             });
 };
 
+exports.getPresentedByProof = function (req, res, next) { 
+
+        PresentationService.listAllByProof(req.params.proofID)
+            .then((presentations) => {
+                res.status(200);
+                res.send(JSON.stringify(presentations));
+            }).catch( (err) => {
+                res.status(404);
+                res.end();
+            });
+};
+
 exports.getPresentedPending = function (req, res, next) { 
 
         PresentationService.list_p_p(req.params.userID)

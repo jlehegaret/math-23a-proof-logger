@@ -23,6 +23,18 @@ class PresentationService {
         });
     }
 
+    // list all re: a certain proof
+    static listAllByProof(proofID) {
+        if (typeof proofID === 'string') {
+            proofID = mongoose.Types.ObjectId(proofID);
+        }
+        return Presentation.find({proof: proofID})
+                           .populate('presenter listener proof')
+            .then((presentations)=>{
+                return presentations;
+        });
+    }
+
     // list a user's presented, to-be-confirmed (aka pending) proofs
     static list_p_p(userID) {
         if (typeof userID === 'string') {
