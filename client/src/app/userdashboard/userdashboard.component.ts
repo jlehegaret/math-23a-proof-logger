@@ -1,3 +1,8 @@
+// This component presents all of a user's presentations
+//   to that user, broken down by status, and provides
+//   CRUD functionality re: presentations associated with
+//   that user.
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../users.service';
@@ -18,34 +23,42 @@ export class UserDashboardComponent implements OnInit {
               private presentationService:PresentationService) { 
   }
 
-  user:any = {'email': ''};  // will be fetched from UserService
-  proofs:any;        // list of all class proofs
-  staff:any;         // list of class staff (who are always listeners)
+  // placeholder containers for data to be fetched from various services
+  user:any = {'email': ''};    // current user
+  proofs:any;                  // list of all class proofs
+  staff:any;           // TODO: list of class staff (who are always listeners)
+                       // currently, this is simply populated with ALL users
   //qualListeners:any; // TODO: add student listeners onto staff options
+
+  // user's display option re: adding new presentation or not
   adding:boolean=false;
 
-  // this user's presented & confirmed pres.
+  // this user's presented & confirmed pres. (to be filled in via service)
   presented_confirmed:any; 
   num_presented_confirmed = 0;
  
-  // this user's presented & denied pres.
+  // this user's presented & denied pres. (to be filled in via service)
   presented_denied:any; 
   num_presented_denied = 0;
 
-  // this user's presented & pending pres.
+  // this user's presented & pending pres. (to be filled in via service)
   presented_pending:any; 
   num_presented_pending = 0;
 
-  // this user's confirmed listened-to pres. 
+  // this user's confirmed listened-to pres.  (to be filled in via service)
   listened_confirmed:any;  
   num_listened_confirmed = 0;
 
-  // this user's pending listened-to pres.
+  // this user's pending listened-to pres. (to be filled in via service)
   listened_pending:any;   
   num_listened_pending = 0;
 
+  // collects data for any new presentation registered by user
   new_presentation = {};
 
+  // retrieve all information re: current user, class proofs, 
+  //   and presentations for current user
+  // TODO:  alter calls based on current user's status
   ngOnInit() {  
     this.getUser(); 
     this.updateListenedConfirmed();
@@ -60,11 +73,13 @@ export class UserDashboardComponent implements OnInit {
 
   }
 
+  // set user's display preference
   setAdding(mode):void{
       this.adding = (mode ? true : false);
   }
 
-  // reads URL to get correct user's info
+  // read URL to get current user's id,
+  //   retrieve user's data from user service
   getUser(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.userService.getUser(id)
@@ -174,6 +189,9 @@ export class UserDashboardComponent implements OnInit {
       this.updatePresentedPending();
       this.updateProofs();
   }
+
+  // SORTING FUNCTIONS used by above collections, to optimize
+  //   display of presentation lists depending on status
 
   sortByEmail(a:any, b:any):number {      
       if ( a.email.substring(0, a.email.lastIndexOf("@")) 

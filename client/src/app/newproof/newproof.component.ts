@@ -1,3 +1,6 @@
+// This component is used to create a new proof
+//  to be added to the class's list.
+
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ProofService } from '../proofs.service';
 
@@ -12,6 +15,8 @@ export class NewProofComponent implements OnInit {
 
   // When a new proof is created, send event to parent to refresh list
   @Output() newProof = new EventEmitter();
+
+  // When a new proof is cancelled, send event to parent to refresh form
   @Output() cancelNewProof = new EventEmitter();
 
   // proof object, bound to the form fields
@@ -37,5 +42,4 @@ export class NewProofComponent implements OnInit {
       this.cancelNewProof.emit();
       form.reset();
   }
-
 }

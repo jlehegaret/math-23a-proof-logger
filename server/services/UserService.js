@@ -1,5 +1,9 @@
 // provides CRUD access to user accounts -
 // a user's contact info, status, and availability
+// As we assume a staff member would create a user,
+// and then the user would update his/her own 
+// availability, we only take the email address
+// and status as input for user creation
 
 mongoose = require('mongoose');
 var User = require('../models/userModel');

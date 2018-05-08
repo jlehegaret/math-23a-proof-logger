@@ -1,5 +1,8 @@
 // provides CRUD access to the list of qualified listeners 
-// for a given proof
+// for a given proof.  
+// All students who deliver an approved presentation
+// of a proof in turn become a qualified listener
+// for that proof.
 
 var Proof = require('../models/proofModel');
 var User = require('../models/userModel');

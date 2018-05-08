@@ -1,5 +1,7 @@
 // provides CRUD access to presentation instances -
 // when one student presents a proof to a qualified listener
+// currently, there are many API calls so as to return 
+//   a specific user's presentations of a specific status
 
 mongoose = require('mongoose');
 var Presentation = require('../models/presentationModel');

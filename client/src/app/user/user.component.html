@@ -1,3 +1,19 @@
+<!--
+    This HTML piece either displays the information about a user
+    or allows the current user to edit a user's information.
+
+    When not in "editing" mode, the user information is listed in 
+    two columns:
+      The first column provides "Edit" and "Delete" functionality.
+      The second column presents user's status in the class, email
+         address, and current availability.
+
+    When in "editing" mode, the user information is again listed in
+    two columns:
+      The first column provides "Save" and "Cancel" functionality.
+      The second column allows the user to change the user's
+        class status, email address, AND availability.
+-->
 
 <div *ngIf="!editing">
 

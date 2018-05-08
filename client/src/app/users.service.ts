@@ -1,3 +1,8 @@
+// This users service translates a component's request
+//   for user-related data into the proper API
+//   call expected by the back-end, and returns the JSON results
+//   to the requester.
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';

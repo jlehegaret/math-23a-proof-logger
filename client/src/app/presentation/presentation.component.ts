@@ -1,3 +1,7 @@
+// This component allows each presentation to be displayed
+//  to the user in a status-specific way, depending on
+//  the "mode" received by the parent component
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PresentationService } from '../presentations.service';
 import { UserService } from '../users.service';
@@ -30,6 +34,8 @@ export class PresentationComponent implements OnInit {
 
   ngOnInit() {}
 
+  // change status of a listened-pending proof and notify parent
+  //   that a decision has been made ("confirmed" vs. "denied")
   confirmListened(response) : void {
     this.presentationService
         .updatePresentation(this.presentation._id, response)
@@ -38,6 +44,8 @@ export class PresentationComponent implements OnInit {
         });
   }
 
+  // remove a previously-denied presentation from the system
+  //   in order to be able to try again
   delete() : void {
     this.presentationService
         .deletePresentation(this.presentation._id)

@@ -1,3 +1,9 @@
+// This component is used to present a specific proof's information
+//   and to provide RUD functionality (not CRUD - the C is handled
+//   via the "newproof" component).
+// The user may choose whether or not to view each qualified listener
+//   per proof in addition to the proof's name and number of listeners.
+
 import { Component, OnInit, Input,  Output, EventEmitter } from '@angular/core';
 import { ProofService } from '../proofs.service';
 
@@ -15,13 +21,14 @@ export class ProofComponent implements OnInit {
     // When a proof is deleted, send event to parent to refresh list
     @Output() deletedProof = new EventEmitter();
 
-    editing:boolean=false;
+    // display mode options
+    editing:boolean=false;        
     showListeners:boolean= false;
-    listeners:any;
 
     constructor(private proofService: ProofService) {}
 
     ngOnInit() {
+        // sort listeners in order of email address
         this.proof.qualifiedListeners.sort( (a, b) => {
             if (a.email < b.email) {
                 return -1;
@@ -31,14 +38,18 @@ export class ProofComponent implements OnInit {
         });
     }
 
+    // whether or not the user wants to edit the proof
     setEditMode(mode):void{
         this.editing = (mode ? true : false);
     }
 
+    // whether or not the user wants to see each listener for the proof
     setShowListenersMode(mode):void{
         this.showListeners = (mode ? true : false);
     }
 
+    // save changes to the proof name using proof service, 
+    //  notify parent component
     updateProof(obj:any):void {
         this.proof.name = obj.nameField;
         this.proofService.updateProof(this.proof._id, this.proof.name)
@@ -47,7 +58,7 @@ export class ProofComponent implements OnInit {
             });
     }
 
-    // deletes proof using ProofService, notifies parent component
+    // delete proof using ProofService, notify parent component
     deleteProof() {
         this.proofService.deleteProof(this.proof._id)
             .subscribe((result)=>{

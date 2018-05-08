@@ -1,3 +1,12 @@
+<!-- 
+    This is a main page to provide CRUD functionality re: the class's users
+
+    It first lists all of the users already registered for the class.
+    Then, depending on the current user's choice, it offers either 
+        a button to click so as to add a new user, or
+        a form to fill out in order to add the new user (or cancel)
+-->
+
 <h2>Class Members</h2>
 
 <div *ngIf="numUsers; else noneTemplate">

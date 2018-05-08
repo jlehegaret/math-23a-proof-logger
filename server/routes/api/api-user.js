@@ -1,3 +1,6 @@
+// the available API paths for all user data
+//  - very simple CRUD functionality
+
 // module dependencies
 var express = require('express');
 var router = express.Router();

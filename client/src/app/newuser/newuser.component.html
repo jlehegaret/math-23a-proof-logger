@@ -1,3 +1,16 @@
+<!--
+    This form allows a staff member to add a new user
+    to Proof Logger.
+
+    The first column provides the Save and Cancel buttons.
+
+    The second column provides input fields for the new user's
+     role (TA, Head, or Student) and email address.
+    Availability is not asked for here, as a staff member
+     creates the list of users to start, and each user will
+     update his/her own availability later.
+-->
+
 <form #form="ngForm" (ngSubmit)="save(form)">
     <div style="display: inline-block; 
                 vertical-align: top; padding: 1em;">            

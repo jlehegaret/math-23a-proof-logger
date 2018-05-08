@@ -1,3 +1,25 @@
+<!-- 
+    This HTML piece either displays the information about a proof
+    or allows the user to edit the proof, depending on the user's 
+    preferences.
+
+    When not in "editing" mode, the proof information is listed in 
+    four columns:
+      The first column provides "Edit" and "Delete" functionality.
+      The second column presents the proof name.
+      The third column allows the user to show or hide the full list
+        of qualified listeners for this proof, as well as display
+        at all times the number of qualified listeners.
+      The fourth column appears only when the user has chosen to 
+        show the qualified listeners, and then lists one per line
+
+    When in "editing" mode, the proof information is listed in
+    only two columns:
+      The first column provides "Save" and "Cancel" functionality.
+      The second column allows the user to change the proof's name.
+
+-->
+
 <div *ngIf="!editing">
   <div style="display: inline-block; vertical-align: top; padding: 1em;">
     <button (click)="setEditMode(true)">Edit</button>

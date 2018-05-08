@@ -1,3 +1,12 @@
+<!-- 
+    This is a main page to provide CRUD functionality re: the class's proofs
+
+    It first lists all of the proofs already registered for the class.
+    Then, depending on the user's choice, it offers either 
+        a button to click so as to add a new proof, or
+        a form to fill out in order to add the new proof (or cancel)
+-->
+
 <h2>Proof List</h2>
 
 <div *ngIf="numProofs; else noneTemplate">

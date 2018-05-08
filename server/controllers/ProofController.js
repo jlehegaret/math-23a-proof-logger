@@ -1,4 +1,5 @@
-// Controllers call the service and return JSON to the client
+// Controllers call the data service 
+// and return JSON to the client
 
 var ProofServiceModule = require('../services/ProofService');
 const ProofService = ProofServiceModule.ProofService;

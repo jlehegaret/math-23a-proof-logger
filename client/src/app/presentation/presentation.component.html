@@ -1,3 +1,15 @@
+<!--
+    This form presents a presentation differently depending on the 
+     status of the presentation.
+    "Listened Pending" pres. need to be approved or denied by listener.
+    "Presented Denied" pres. need to be noted by the presenter,
+       and then the presenter may choose to delete them.
+    "Presented Pending" pres. have been done but do not yet reflect
+       in the presenter's score
+    "Presented Confirmed" pres. do count within the student's score
+    "Listened Confirmed" pres. also count within the student's score
+-->
+
 <div *ngIf="mode == 'listened_pending'">
   <div style="display: inline-block; vertical-align: top; padding: .5em;">  
     <button (click)="confirmListened('confirmed')">Confirm</button>

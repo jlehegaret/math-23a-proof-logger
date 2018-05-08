@@ -1,3 +1,8 @@
+// This is an extremely simple component which
+// merely ensures that the class name appears at the top
+// of every page served by this single-page app.
+
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({

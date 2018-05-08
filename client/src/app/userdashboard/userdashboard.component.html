@@ -1,3 +1,23 @@
+<!--
+    This is a main page which presents all of a user's own 
+        presentation statuses to that user.
+    It differs depending on whether or not the user is a student
+        or course staff (Head or TA).
+
+    Heads and TAs never present, but they do listen to (and then approve
+        or deny) student presentations.  They also have access to the 
+        list of all of the Proof Logger users and the list of all of
+        the proofs that students should present over the semester.
+
+    Students need to work their way through presenting all of the
+        proofs on the class's proofs list.  Each time a student
+        presents, the student needs to submit a request to the listener
+        to confirm/deny that presentation.  As presentations are
+        confirmed, the student's score rises.  As students become
+        qualified listeners for a proof and then listen to each other, 
+        they also earn listening points.        
+-->
+
 <h2>Hello, {{ user.email }}</h2>
 
 <div *ngIf="user.status == 'Student'; else staffTemplate">

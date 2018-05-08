@@ -1,4 +1,5 @@
-// Controllers call the service and return JSON to the client
+// Controllers call the data service 
+// and return JSON to the client
 
 var UserServiceModule = require('../services/UserService');
 const UserService = UserServiceModule.UserService;

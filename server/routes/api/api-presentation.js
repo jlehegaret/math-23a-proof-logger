@@ -1,3 +1,11 @@
+// the available API paths for presentation data
+// In addition to the basic CRUD functionality, 
+//  there are many paths in order to provide presentations
+//  of a specific status for a specific user.  We could either
+//  continue to expand upon this route, or we could consolidate them
+//  to provide only "all listened" or "all presented", depending
+//  on customer use cases and performance
+
 // module dependencies
 var express = require('express');
 var router = express.Router();

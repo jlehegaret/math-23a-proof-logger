@@ -1,3 +1,7 @@
+// the available API paths for all proof data
+//   to provide CRUD functionality at both levels:  
+//   the proofs themselves and each proof's listeners
+
 // module dependencies
 var express = require('express');
 var router = express.Router();

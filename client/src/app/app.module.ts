@@ -1,3 +1,11 @@
+// The Proof Logger app provides functionality so that
+//   one math class may define a user list, a proof list,
+//   and then keep track of which students have presented
+//   which proofs to whom.
+// It provides a page upon which all Proof Logger users are listed,
+//   a page upon which all of the class's proofs are listed,
+//   and various user-specific dashboards re: presentation status.
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
