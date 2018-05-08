@@ -17,7 +17,7 @@ import { NewPresentationComponent } from './newpresentation/newpresentation.comp
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/proofs', pathMatch: 'full'},
+  { path: '', redirectTo: '/users', pathMatch: 'full'},
   { path: 'proofs', component: ProofListComponent },
   { path: 'users', component: UserListComponent },
   { path: 'users/:id', component: UserDashboardComponent }

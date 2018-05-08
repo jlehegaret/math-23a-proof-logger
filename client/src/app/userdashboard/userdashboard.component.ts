@@ -81,7 +81,7 @@ export class UserDashboardComponent implements OnInit {
     this.presentationService.getListenedConfirmed(id)
         .subscribe( (results) => {
           this.listened_confirmed = results;
-          //this.listened_confirmed.sort(this.sortByPresenter);
+          this.listened_confirmed.sort(this.sortByPresenter);
           this.num_listened_confirmed = this.listened_confirmed.length;
         });
   }
@@ -92,7 +92,7 @@ export class UserDashboardComponent implements OnInit {
     this.presentationService.getListenedPending(id)
         .subscribe( (results) => {
           this.listened_pending = results;
-          //this.listened_pending.sort(this.sortByPresenter);
+          this.listened_pending.sort(this.sortByPresenter);
           this.num_listened_pending = this.listened_pending.length;
         });
   }
@@ -101,7 +101,6 @@ export class UserDashboardComponent implements OnInit {
   updateListened() : void {
       this.updateListenedPending();
       this.updateListenedConfirmed();
-      //location.reload();
   }
 
   // FOR STUDENTS ONLY
@@ -112,7 +111,7 @@ export class UserDashboardComponent implements OnInit {
     this.proofService.listProofs()
         .subscribe( (proofs) => {
           this.proofs = proofs;
-          //this.proofs.sort(this.sortByProof);
+          this.proofs.sort(this.sortByProof);
         });
   }
 
@@ -122,7 +121,7 @@ export class UserDashboardComponent implements OnInit {
     this.userService.listUsers()
         .subscribe( (users) => {
           this.staff = users;
-          //this.staff.sort(this.sortByEmail);
+          this.staff.sort(this.sortByEmail);
         });
   }
 
@@ -133,7 +132,7 @@ export class UserDashboardComponent implements OnInit {
         .getPresentedConfirmed(id)
         .subscribe( (results) => {
           this.presented_confirmed = results;
-          //this.presented_confirmed.sort(this.sortByProof);
+          this.presented_confirmed.sort(this.sortByProof);
           this.num_presented_confirmed = this.presented_confirmed.length;
         });
   }
@@ -145,7 +144,7 @@ export class UserDashboardComponent implements OnInit {
         .getPresentedDenied(id)
         .subscribe( (results) => {
           this.presented_denied = results;
-          //this.presented_denied.sort(this.sortByProof);
+          this.presented_denied.sort(this.sortByProof);
           this.num_presented_denied = this.presented_denied.length;
         });
   }
@@ -156,7 +155,7 @@ export class UserDashboardComponent implements OnInit {
     this.presentationService.getPresentedPending(id)
         .subscribe( (results) => {
           this.presented_pending = results;
-          //this.presented_pending.sort(this.sortByProof);
+          this.presented_pending.sort(this.sortByProof);
           this.num_presented_pending = this.presented_pending.length;
         });
   }
@@ -167,6 +166,51 @@ export class UserDashboardComponent implements OnInit {
       this.updateProofs();
   }
 
+  sortByEmail(a:any, b:any):number {        
+      if ( a.email.substring(0, a.email.lastIndexOf("@")) 
+            < b.email.substring(0, b.email.lastIndexOf("@")) ) {
+          return -1;
+      } else { 
+          return 1; 
+      }
+  }
+
+  sortByPresenter(a:any, b:any):number {
+      let e1 = a.presenter.email;
+      let e2 = b.presenter.email;         
+      if (e1 == e2) {
+        if (a.proof.name < b.proof.name) {
+            return -1;
+        } else { 
+            return 1; 
+        }
+      } else {
+        if (e1.substring(0, e1.lastIndexOf("@")) 
+              < e2.substring(0, e2.lastIndexOf("@"))) {
+            return -1;
+        } else { 
+            return 1; 
+        }
+      }
+  }
+
+  sortByProof(a:any, b:any):number {
+      let p1 = a.proof.name;
+      let p2 = b.proof.name; 
+      if (p1 == p2) {
+          if (a.listener.email < b.listener.email) {
+              return -1;
+          } else { 
+              return 1; 
+          }
+      } else {        
+          if (p1 < p2) {
+              return -1;
+          } else { 
+              return 1; 
+          }
+      }
+  }
 }
 
 
