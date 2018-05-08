@@ -21,6 +21,7 @@ export class PresentationComponent implements OnInit {
   // when a listening has been confirmed, will
   // need to update both pending and confirmed lists
   @Output() confirmed = new EventEmitter(); 
+  @Output() deleted = new EventEmitter();
 
   constructor(private presentationService:PresentationService,
               private userService:UserService,
@@ -29,11 +30,20 @@ export class PresentationComponent implements OnInit {
 
   ngOnInit() {}
 
-  confirmListened() : void {
+  confirmListened(response) : void {
     this.presentationService
-        .updatePresentation(this.presentation._id, "confirmed")
+        .updatePresentation(this.presentation._id, response)
         .subscribe((result)=>{
           this.confirmed.emit();
         });
   }
+
+  delete() : void {
+    this.presentationService
+        .deletePresentation(this.presentation._id)
+        .subscribe((result)=>{
+          this.deleted.emit();
+        });
+  }
+
 }

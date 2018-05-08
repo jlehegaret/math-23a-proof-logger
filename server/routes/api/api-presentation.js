@@ -22,22 +22,27 @@ router.use( (req, res, next) => {
 // at "url/api/presentations" - list all
 router.get('/', PresentationController.getAllPresentations);
 
-// at "url/api/presentations/presented-pending/user/userID" 
+// at "url/api/presentations/presentedpending/user/userID" 
 //  - list specific user's presented, still-pending presentations
 router.get('/presentedpending/user/:userID', 
             PresentationController.getPresentedPending);
 
-// at "url/api/presentations/presented-confirmed/user/userID" 
+// at "url/api/presentations/presentedconfirmed/user/userID" 
 //  - list specific user's presented & confirmed presentations
 router.get('/presentedconfirmed/user/:userID', 
             PresentationController.getPresentedConfirmed);
 
-// at "url/api/presentations/listened-pending/user/userID/" 
+// at "url/api/presentations/presenteddenied/user/userID" 
+//  - list specific user's presented & denied presentations
+router.get('/presenteddenied/user/:userID', 
+            PresentationController.getPresentedDenied);
+
+// at "url/api/presentations/listenedpending/user/userID/" 
 //  - list specific user's list of pending listened-to presentations
 router.get('/listenedpending/user/:userID', 
             PresentationController.getListenedPending);
 
-// at "url/api/presentations/listened-confirmed/user/userID" 
+// at "url/api/presentations/listenedconfirmed/user/userID" 
 //  - list specific user's list of confirmed listened-to presentations
 router.get('/listenedconfirmed/user/:userID', 
             PresentationController.getListenedConfirmed);

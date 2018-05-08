@@ -24,12 +24,12 @@ mongoose.connect("mongodb://" + process.env.DB_USER
 app.use("/api/presentations", api_presentations);
 app.use("/api/users", api_users);
 app.use("/api/proofs", api_proofs);
-app.use("/", express.static('../client/dist'));
-
+app.use('/', express.static('../client/dist'));
+app.use('/*', express.static('../client/dist'));
 
 // file not found
 app.use((req, res, next)=>{
-    console.log(req);
+    console.log("FELL PAST WILD CARD");
     res.status(404);
     res.send("Sorry, this file cannot be found");
 });

@@ -13,6 +13,11 @@ export class UserService {
         return this.http.get(this.apiUrl + "/users");
     }
 
+    //TODO:
+    //listUsersStaffOnly() {
+    //    return this.http.get(this.apiUrl + "/users/staff");
+    //}
+
     getUser(id:string) {
         return this.http.get(this.apiUrl + "/users/" + id);
     }

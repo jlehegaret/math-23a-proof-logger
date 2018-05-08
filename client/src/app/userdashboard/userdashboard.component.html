@@ -11,6 +11,8 @@
     
     <div *ngIf="adding">
         <app-newpresentation [user]="user" 
+                             [proofs]="proofs"
+                             [qualifiedListeners]="staff"
                             (newPres)="updatePresented()"
                             (cancelNewPres)= "setAdding(false)">
         </app-newpresentation>
@@ -22,19 +24,31 @@
 
     <app-presentation *ngFor='let presObj of listened_pending'
                 [presentation] = "presObj"
-                mode = "listened_pending" (confirmed)="updateListened()">
+                mode = "listened_pending" 
+                (confirmed)="updateListened()">
     </app-presentation>
 
 </div>
 
 <div *ngIf="user.status == 'Student'">
 
+    <div *ngIf="num_presented_denied">
+        <h3>Denied Credit</h3>
+        <app-presentation *ngFor='let presObj of presented_denied'
+                    [presentation] = "presObj"
+                    mode = "presented_denied"
+                    (deleted)="updatePresentedDenied()">
+        </app-presentation>
+    
+    </div>
+
     <div *ngIf="num_presented_pending">
         <h3>Presented <i>(pending confirmation)</i></h3>
     
         <app-presentation *ngFor='let presObj of presented_pending'
                     [presentation] = "presObj"
-                    mode = "presented_pending">
+                    mode = "presented_pending"
+                    (deleted)="updatePresentedPending()">
         </app-presentation>
     
     </div>

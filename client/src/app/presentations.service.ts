@@ -23,6 +23,11 @@ export class PresentationService {
             + "/presentations/presentedconfirmed/user/" + id);
     }
 
+    getPresentedDenied(id:string) {
+        return this.http.get(this.apiUrl 
+            + "/presentations/presenteddenied/user/" + id);
+    }
+
     getListenedPending(id:string) {
         return this.http.get(this.apiUrl 
             + "/presentations/listenedpending/user/" + id);

@@ -39,6 +39,18 @@ exports.getPresentedConfirmed = function (req, res, next) {
             });
 };
 
+exports.getPresentedDenied = function (req, res, next) { 
+
+        PresentationService.list_p_d(req.params.userID)
+            .then((presentations) => {
+                res.status(200);
+                res.send(JSON.stringify(presentations));
+            }).catch( (err) => {
+                res.status(404);
+                res.end();
+            });
+};
+
 exports.getListenedPending = function (req, res, next) { 
 
         PresentationService.list_l_p(req.params.userID)

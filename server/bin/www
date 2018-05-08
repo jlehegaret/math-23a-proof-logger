@@ -2,7 +2,7 @@
 var app = require('../app');
 var http = require('http');
 
-// hw5 port
+// hw7 port
 var port = 8087;
 app.set('port', port);
 

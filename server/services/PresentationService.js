@@ -14,7 +14,6 @@ class PresentationService {
 
     // list all
     static list() {
-        console.log("in list all");
         return Presentation.find({})
                            .populate('presenter listener proof')
             .then((presentations)=>{
@@ -40,6 +39,18 @@ class PresentationService {
             userID = mongoose.Types.ObjectId(userID);
         }
         return Presentation.find({presenter: userID, status: 'confirmed'})
+                           .populate('presenter listener proof')
+            .then((presentations)=>{
+                return presentations;
+        });
+    } 
+
+    // list a user's presented and denied proofs
+    static list_p_d(userID) {
+        if (typeof userID === 'string') {
+            userID = mongoose.Types.ObjectId(userID);
+        }
+        return Presentation.find({presenter: userID, status: 'denied'})
                            .populate('presenter listener proof')
             .then((presentations)=>{
                 return presentations;
@@ -124,10 +135,11 @@ class PresentationService {
                 presentation.status = status;
                 presentation.save();
             }).then((presentation) => {
+
                 // if Proof has a new qualified listener, note that,too
                 if (status == "confirmed") {
-                    return ListenersService.create(presentation.proof._id, 
-                                            presentation.presenter._id)
+                    return ListenersService.create(presentation.proof, 
+                                            presentation.presenter)
                             .then((listeners) => { return presentation; });
                 } else {
                     return presentation;

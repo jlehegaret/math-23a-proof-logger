@@ -19,13 +19,19 @@ export class UserDashboardComponent implements OnInit {
   }
 
   user:any = {'email': ''};  // will be fetched from UserService
-  proofs:any;     // list of all class proofs
+  proofs:any;        // list of all class proofs
+  staff:any;         // list of class staff (who are always listeners)
+  //qualListeners:any; // TODO: add student listeners onto staff options
   adding:boolean=false;
 
   // this user's presented & confirmed pres.
   presented_confirmed:any; 
   num_presented_confirmed = 0;
  
+  // this user's presented & denied pres.
+  presented_denied:any; 
+  num_presented_denied = 0;
+
   // this user's presented & pending pres.
   presented_pending:any; 
   num_presented_pending = 0;
@@ -42,11 +48,16 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit() {  
     this.getUser(); 
-    this.updatePresentedConfirmed();
-    this.updatePresentedPending();
     this.updateListenedConfirmed();
     this.updateListenedPending();
+
+    // actually only needed for students - TODO: "if"
     this.updateProofs();
+    this.updateStaff();
+    this.updatePresentedConfirmed();
+    this.updatePresentedDenied();
+    this.updatePresentedPending();
+
   }
 
   setAdding(mode):void{
@@ -62,45 +73,26 @@ export class UserDashboardComponent implements OnInit {
         });
   }
 
-  // gets collection of Presentations, adds more readable info
-  updatePresentedConfirmed(): void {
+  // FOR ALL USERS
 
-    const id = this.route.snapshot.paramMap.get('id');
-
-    this.presentationService
-        .getPresentedConfirmed(id)
-        .subscribe( (results) => {
-          this.presented_confirmed = results;
-          this.num_presented_confirmed = this.presented_confirmed.length;
-        });
-  }
-
-  // gets collection of Presentations, adds more readable info
-  updatePresentedPending(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.presentationService.getPresentedPending(id)
-        .subscribe( (results) => {
-          this.presented_pending = results;
-          this.num_presented_pending = this.presented_pending.length;
-        });
-  }
-
-  // gets collection of Presentations, adds more readable info
+  // gets collection of Presentations
   updateListenedConfirmed(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.presentationService.getListenedConfirmed(id)
         .subscribe( (results) => {
           this.listened_confirmed = results;
+          //this.listened_confirmed.sort(this.sortByPresenter);
           this.num_listened_confirmed = this.listened_confirmed.length;
         });
   }
 
-  // gets collection of Presentations, adds more readable info
+  // gets collection of Presentations
   updateListenedPending(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.presentationService.getListenedPending(id)
         .subscribe( (results) => {
           this.listened_pending = results;
+          //this.listened_pending.sort(this.sortByPresenter);
           this.num_listened_pending = this.listened_pending.length;
         });
   }
@@ -109,6 +101,64 @@ export class UserDashboardComponent implements OnInit {
   updateListened() : void {
       this.updateListenedPending();
       this.updateListenedConfirmed();
+      //location.reload();
+  }
+
+  // FOR STUDENTS ONLY
+
+  // gets collection of Proofs - TODO: filter out already-presented ones
+  updateProofs(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.proofService.listProofs()
+        .subscribe( (proofs) => {
+          this.proofs = proofs;
+          //this.proofs.sort(this.sortByProof);
+        });
+  }
+
+  // gets collection of staff, who can always listen to any proof
+  // TODO: make an API-side staff-only call
+  updateStaff(): void {
+    this.userService.listUsers()
+        .subscribe( (users) => {
+          this.staff = users;
+          //this.staff.sort(this.sortByEmail);
+        });
+  }
+
+  // gets collection of Presentations
+  updatePresentedConfirmed(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.presentationService
+        .getPresentedConfirmed(id)
+        .subscribe( (results) => {
+          this.presented_confirmed = results;
+          //this.presented_confirmed.sort(this.sortByProof);
+          this.num_presented_confirmed = this.presented_confirmed.length;
+        });
+  }
+
+  // gets collection of Presentations
+  updatePresentedDenied(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.presentationService
+        .getPresentedDenied(id)
+        .subscribe( (results) => {
+          this.presented_denied = results;
+          //this.presented_denied.sort(this.sortByProof);
+          this.num_presented_denied = this.presented_denied.length;
+        });
+  }
+
+  // gets collection of Presentations
+  updatePresentedPending(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.presentationService.getPresentedPending(id)
+        .subscribe( (results) => {
+          this.presented_pending = results;
+          //this.presented_pending.sort(this.sortByProof);
+          this.num_presented_pending = this.presented_pending.length;
+        });
   }
 
   // updates presented group and proofs list when a new pres is registered
@@ -117,14 +167,6 @@ export class UserDashboardComponent implements OnInit {
       this.updateProofs();
   }
 
-  // gets collection of Proofs - TODO: filter out already-presented ones
-  updateProofs(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.proofService.listProofs()
-        .subscribe( (proofs) => {
-          this.proofs = proofs;
-        });
-  }
 }
 
 

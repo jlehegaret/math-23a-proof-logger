@@ -1,17 +1,32 @@
 <div *ngIf="mode == 'listened_pending'">
-
-  <div style="display: inline-block; vertical-align: top; padding: 1em;">  
-    <button (click)="confirmListened()">Confirm</button>
+  <div style="display: inline-block; vertical-align: top; padding: .5em;">  
+    <button (click)="confirmListened('confirmed')">Confirm</button>
+    <button (click)="confirmListened('denied')">Deny</button>
   </div>
-
-  <div style="display: inline-block; vertical-align: top; padding: 1em;">
+  <div style="display: inline-block; vertical-align: top; padding: .5em;">
     {{presentation.presenter.email}}, {{presentation.proof.name}}  <i>({{presentation.date_presented.substring(0, 10)}})</i>
   </div>
   <br>
 </div>
 
+<div *ngIf="mode == 'presented_denied'">
+  <div style="display: inline-block; vertical-align: top; padding: .5em;">  
+    <button (click)="delete()">Delete</button>
+  </div>
+  <div style="display: inline-block; vertical-align: top; padding: .5em;">
+    {{presentation.proof.name}} presented to {{presentation.listener.email}} <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
+  </div>
+  <br>
+</div>
+
 <div *ngIf="mode == 'presented_pending'">
-  {{presentation.proof.name}} presented to {{presentation.listener.email}} <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
+  <div style="display: inline-block; vertical-align: top; padding: .5em;">  
+    <button (click)="delete()">Delete</button>
+  </div>
+  <div style="display: inline-block; vertical-align: top; padding: .5em;">
+  {{presentation.proof.name}} presented to {{presentation.listener.email}} <i>({{presentation.date_presented.substring(0, 10)}})</i>
+  </div>
+  <br>
 </div>
 
 <div *ngIf="mode == 'presented_confirmed'">

@@ -16,13 +16,23 @@ export class ProofComponent implements OnInit {
     @Output() deletedProof = new EventEmitter();
 
     editing:boolean=false;
+    showListeners:boolean= false;
+    listeners:any;
 
     constructor(private proofService: ProofService) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.listeners = this.proof.qualifiedListeners;
+        this.listeners = this.listeners.map(ql => 
+            ql.email + ', Availability: ' + ql.availability);
+    }
 
     setEditMode(mode):void{
         this.editing = (mode ? true : false);
+    }
+
+    setShowListenersMode(mode):void{
+        this.showListeners = (mode ? true : false);
     }
 
     updateProof(obj:any):void {
