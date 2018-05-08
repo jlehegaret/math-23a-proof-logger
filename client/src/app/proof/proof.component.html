@@ -1,13 +1,13 @@
 <div *ngIf="!editing">
-  <div style="display: inline-block; vertical-align: top; padding: .5em;">
+  <div style="display: inline-block; vertical-align: top; padding: 1em;">
     <button (click)="setEditMode(true)">Edit</button>
     <button (click)="deleteProof()">Delete</button>
   </div>
-  <div style="display: inline-block; vertical-align: top; padding: .5em;">
+  <div style="display: inline-block; vertical-align: top; padding: 1em;">
     <b>{{ proof.name }}</b>
   </div>
-  <div style="display: inline-block; vertical-align: top; padding: .5em;">
-      <div>{{ listeners.length }} listeners 
+  <div style="display: inline-block; vertical-align: top; padding: 1em;">
+      <div>{{ proof.qualifiedListeners.length }} listeners 
         <span *ngIf="showListeners">
           <button (click)="setShowListenersMode(false)">Hide</button>
         </span>
@@ -17,26 +17,25 @@
       </div>
   </div>
   <div *ngIf="showListeners" 
-        style="display: inline-block; vertical-align: top; padding: .5em;">
+        style="display: inline-block; vertical-align: top; padding: 1em;">
       <div *ngFor="let ql of proof.qualifiedListeners">
         <a routerLink="/users/{{ql._id}}">{{ql.email}}</a>
         <span *ngIf="ql.availability">
-          , availability: <i>{{ql.availability}}</i>
+          availability: <i>{{ql.availability}}</i>
         </span>
       </div>
   </div>
-
 </div>
 
 <div *ngIf="editing">
   <form #form="ngForm">
     <div class="form-group">
-      <div style="display: inline-block; vertical-align: top; padding: .5em;">            
+      <div style="display: inline-block; vertical-align: top; padding: 1em;">            
         <div><button (click)="updateProof(form.value)">Save</button>
              <button (click)="setEditMode(false)">Cancel</button>
         </div>
       </div>
-      <div style="display: inline-block; vertical-align: top; padding: .5em;">
+      <div style="display: inline-block; vertical-align: top; padding: 1em;">
           <label for="nameField">Proof Name:</label>
           <input #name name="nameField" [ngModel]="proof.name">
       </div>

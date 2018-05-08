@@ -30,9 +30,9 @@
 </div>
 
 <div *ngIf="mode == 'presented_confirmed'">
-  {{presentation.proof.name}} presented to {{presentation.listener.email}} <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
+  <b>{{presentation.proof.name}}</b> to {{presentation.listener.email}} <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
 </div>
 
 <div *ngIf="mode == 'listened_confirmed'">
-  {{presentation.presenter.email}}, {{presentation.proof.name}}  <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
+  {{presentation.presenter.email}}, <b>{{presentation.proof.name}}</b>  <i>({{presentation.date_presented.substring(0, 10)}})</i><br>
 </div>

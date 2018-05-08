@@ -22,9 +22,13 @@ export class ProofComponent implements OnInit {
     constructor(private proofService: ProofService) {}
 
     ngOnInit() {
-        this.listeners = this.proof.qualifiedListeners;
-        this.listeners = this.listeners.map(ql => 
-            ql.email + ', Availability: ' + ql.availability);
+        this.proof.qualifiedListeners.sort( (a, b) => {
+            if (a.email < b.email) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
     }
 
     setEditMode(mode):void{

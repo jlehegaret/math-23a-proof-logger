@@ -81,8 +81,10 @@ export class UserDashboardComponent implements OnInit {
     this.presentationService.getListenedConfirmed(id)
         .subscribe( (results) => {
           this.listened_confirmed = results;
-          this.listened_confirmed.sort(this.sortByPresenter);
           this.num_listened_confirmed = this.listened_confirmed.length;
+          if (this.num_listened_confirmed) {
+            this.listened_confirmed.sort(this.sortByPresenter);
+          }
         });
   }
 
@@ -92,8 +94,10 @@ export class UserDashboardComponent implements OnInit {
     this.presentationService.getListenedPending(id)
         .subscribe( (results) => {
           this.listened_pending = results;
-          this.listened_pending.sort(this.sortByPresenter);
           this.num_listened_pending = this.listened_pending.length;
+          if (this.num_listened_pending) {
+            this.listened_pending.sort(this.sortByPresenter);
+          }
         });
   }
 
@@ -111,7 +115,6 @@ export class UserDashboardComponent implements OnInit {
     this.proofService.listProofs()
         .subscribe( (proofs) => {
           this.proofs = proofs;
-          this.proofs.sort(this.sortByProof);
         });
   }
 
@@ -132,8 +135,10 @@ export class UserDashboardComponent implements OnInit {
         .getPresentedConfirmed(id)
         .subscribe( (results) => {
           this.presented_confirmed = results;
-          this.presented_confirmed.sort(this.sortByProof);
           this.num_presented_confirmed = this.presented_confirmed.length;
+          if (this.num_presented_confirmed) {
+            this.presented_confirmed.sort(this.sortByProof);
+          }
         });
   }
 
@@ -144,8 +149,10 @@ export class UserDashboardComponent implements OnInit {
         .getPresentedDenied(id)
         .subscribe( (results) => {
           this.presented_denied = results;
-          this.presented_denied.sort(this.sortByProof);
           this.num_presented_denied = this.presented_denied.length;
+          if (this.num_presented_denied) {
+            this.presented_denied.sort(this.sortByProof);
+          }
         });
   }
 
@@ -155,8 +162,10 @@ export class UserDashboardComponent implements OnInit {
     this.presentationService.getPresentedPending(id)
         .subscribe( (results) => {
           this.presented_pending = results;
-          this.presented_pending.sort(this.sortByProof);
           this.num_presented_pending = this.presented_pending.length;
+          if (this.num_presented_pending) {
+            this.presented_pending.sort(this.sortByProof);
+          }
         });
   }
 
@@ -166,7 +175,7 @@ export class UserDashboardComponent implements OnInit {
       this.updateProofs();
   }
 
-  sortByEmail(a:any, b:any):number {        
+  sortByEmail(a:any, b:any):number {      
       if ( a.email.substring(0, a.email.lastIndexOf("@")) 
             < b.email.substring(0, b.email.lastIndexOf("@")) ) {
           return -1;
