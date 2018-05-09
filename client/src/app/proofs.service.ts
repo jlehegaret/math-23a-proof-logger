@@ -1,5 +1,5 @@
-// This proofs service translates a component's request
-//   for proof-related data into the proper API
+// This proofs service translates a component's CRUD requests
+//   re: proof-related data into the proper API
 //   call expected by the back-end, and returns the JSON results
 //   to the requester.
 
@@ -34,5 +34,11 @@ export class ProofService {
 
     deleteProof(id:string) {
         return this.http.delete(this.apiUrl + "/proofs/" + id);
+    }
+
+    // remove a qualified listener from a proof
+    deleteListener(proofID:string, userID:string) {
+        return this.http.delete(this.apiUrl + "/proofs/" 
+            + proofID + '/listeners/' + userID);
     }
 }

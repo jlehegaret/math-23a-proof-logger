@@ -94,6 +94,15 @@
 
 </div>
 
+<div *ngIf="user.status == 'Student'">
+
+    <h3>Testing</h3>
+    
+    <p><i>For testing purposes only, this link is provided so that you may more     easily "approve" or "deny" just-submitted presentations:</i></p>
+    <a routerLink="/users">Class List</a>
+
+</div>
+
 <ng-template #staffTemplate>
     <h2>Staff Dashboard</h2>
 

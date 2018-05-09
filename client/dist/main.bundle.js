@@ -357,7 +357,7 @@ module.exports = ""
 /***/ "./src/app/newuser/newuser.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--\n    This form allows a staff member to add a new user\n    to Proof Logger.\n\n    The first column provides the Save and Cancel buttons.\n\n    The second column provides input fields for the new user's\n     role (TA, Head, or Student) and email address.\n    Availability is not asked for here, as a staff member\n     creates the list of users to start, and each user will\n     update his/her own availability later.\n-->\n\n<form #form=\"ngForm\" (ngSubmit)=\"save(form)\">\n    <div style=\"display: inline-block; \n                vertical-align: top; padding: 1em;\">            \n        <button type=\"submit\">Save</button>\n        <button (click)=\"cancelNewUser(form)\">Cancel</button>\n    </div>\n\n    <div style=\"display: inline-block; vertical-align: top; padding: 1em;\">\n      <div>\n        <label for=\"statusField\">Status:</label>\n        <input name=\"statusField\" placeholder=\"Head, TA, or Student\" [(ngModel)]=\"user.status\">\n      </div>\n      <div>\n        <label for=\"emailField\">Email:</label>\n        <input name=\"emailField\"  [(ngModel)]=\"user.email\">\n      </div>\n    </div>\n</form>\n"
+module.exports = "<!--\n    This form allows a staff member to add a new user\n    to Proof Logger.\n\n    The first column provides the Save and Cancel buttons.\n\n    The second column provides input fields for the new user's\n     role (TA, Head, or Student) and email address.\n    Availability is not asked for here, as a staff member\n     creates the list of users to start, and each user will\n     update his/her own availability later.\n-->\n\n<form #form=\"ngForm\" (ngSubmit)=\"save(form)\" autocomplete=\"off\">\n    <div style=\"display: inline-block; \n                vertical-align: top; padding: 1em;\">            \n        <button type=\"submit\">Save</button>\n        <button (click)=\"cancelNewUser(form)\">Cancel</button>\n    </div>\n\n    <div style=\"display: inline-block; vertical-align: top; padding: 1em;\">\n      <span>\n        <label for=\"statusField\">Role:</label>\n        <select name=\"statusField\" [(ngModel)]=\"user.status\">\n          <option>Head</option>\n          <option>TA</option>\n          <option selected>Student</option>\n        </select>\n      </span>\n      &nbsp;\n      <span>\n        <label for=\"emailField\">Email:</label>\n        <input name=\"emailField\"  type=\"email\" [(ngModel)]=\"user.email\">\n      </span>\n    </div>\n</form>\n"
 
 /***/ }),
 
@@ -543,8 +543,8 @@ var PresentationComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("./src/environments/environment.ts");
-// This presentations service translates a component's request
-//   for presentation-related data into the proper API
+// This presentations service translates a component's CRUD requests
+//   re: presentation-related data into the proper API
 //   call expected by the back-end, and returns the JSON results
 //   to the requester.
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -711,7 +711,7 @@ module.exports = ""
 /***/ "./src/app/proof/proof.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- \n    This HTML piece either displays the information about a proof\n    or allows the user to edit the proof, depending on the user's \n    preferences.\n\n    When not in \"editing\" mode, the proof information is listed in \n    four columns:\n      The first column provides \"Edit\" and \"Delete\" functionality.\n      The second column presents the proof name.\n      The third column allows the user to show or hide the full list\n        of qualified listeners for this proof, as well as display\n        at all times the number of qualified listeners.\n      The fourth column appears only when the user has chosen to \n        show the qualified listeners, and then lists one per line\n\n    When in \"editing\" mode, the proof information is listed in\n    only two columns:\n      The first column provides \"Save\" and \"Cancel\" functionality.\n      The second column allows the user to change the proof's name.\n\n-->\n\n<div *ngIf=\"!editing\">\n  <div style=\"display: inline-block; vertical-align: top; padding: .5em;\">\n    <button (click)=\"setEditMode(true)\">Edit</button>\n    <button (click)=\"deleteProof()\">Delete</button>\n  </div>\n  <div style=\"display: inline-block; vertical-align: top; padding: .5em;\">\n    <b>{{ proof.name }}</b>\n  </div>\n  <div style=\"display: inline-block; vertical-align: top; padding: .5em;\">\n      <div>{{ proof.qualifiedListeners.length }} listeners \n        <span *ngIf=\"showListeners\">\n          <button (click)=\"setShowListenersMode(false)\">Hide</button>\n        </span>\n        <span *ngIf=\"!showListeners\">\n          <button (click)=\"setShowListenersMode(true)\">Show</button>\n        </span>\n      </div>\n  </div>\n  <div *ngIf=\"showListeners\" \n        style=\"display: inline-block; vertical-align: top; padding: .5em;\">\n      <div *ngFor=\"let ql of proof.qualifiedListeners\">\n        <a routerLink=\"/users/{{ql._id}}\">{{ql.email}}</a>\n        <span *ngIf=\"ql.availability\">\n          availability: <i>{{ql.availability}}</i>\n        </span>\n      </div>\n  </div>\n</div>\n\n<div *ngIf=\"editing\">\n  <form #form=\"ngForm\">\n    <div class=\"form-group\">\n      <div style=\"display: inline-block; vertical-align: top; padding: .5em;\">            \n        <div><button (click)=\"updateProof(form.value)\">Save</button>\n             <button (click)=\"setEditMode(false)\">Cancel</button>\n        </div>\n      </div>\n      <div style=\"display: inline-block; vertical-align: top; padding: .5em;\">\n          <label for=\"nameField\">Proof Name:</label>\n          <input #name name=\"nameField\" [ngModel]=\"proof.name\">\n      </div>\n    </div>\n  </form>\n</div>\n"
+module.exports = "<!-- \n    This HTML piece either displays the information about a proof\n    or allows the user to edit the proof, depending on the user's \n    preferences.\n\n    When not in \"editing\" mode, the proof information is listed in \n    four columns:\n      The first column provides \"Edit\" and \"Delete\" functionality.\n      The second column presents the proof name.\n      The third column allows the user to show or hide the full list\n        of qualified listeners for this proof, as well as display\n        at all times the number of qualified listeners.\n      The fourth column appears only when the user has chosen to \n        show the qualified listeners, and then lists one per line\n\n    When in \"editing\" mode, the proof information is listed in\n    only two columns:\n      The first column provides \"Save\" and \"Cancel\" functionality.\n      The second column allows the user to change the proof's name.\n\n-->\n\n<div *ngIf=\"!editing\">\n  <div style=\"display: inline-block; vertical-align: top; padding: .5em;\">\n    <button (click)=\"setEditMode(true)\">Edit</button>\n    <button (click)=\"deleteProof()\">Delete</button>\n  </div>\n  <div style=\"display: inline-block; vertical-align: top; padding: .5em;\">\n    <b>{{ proof.name }}</b>\n  </div>\n  <div style=\"display: inline-block; vertical-align: top; padding: .5em;\">\n      <div>{{ proof.qualifiedListeners.length }} listeners \n        <span *ngIf=\"showListeners && proof.qualifiedListeners.length\">\n          <button (click)=\"setShowListenersMode(false)\">Hide</button>\n        </span>\n        <span *ngIf=\"!showListeners && proof.qualifiedListeners.length\">\n          <button (click)=\"setShowListenersMode(true)\">Show</button>\n        </span>\n      </div>\n  </div>\n  <div *ngIf=\"showListeners\" \n        style=\"display: inline-block; vertical-align: top; padding: .5em;\">\n      <div *ngFor=\"let ql of proof.qualifiedListeners\">\n        <a routerLink=\"/users/{{ql._id}}\">{{ql.email}}</a>\n        <span *ngIf=\"ql.availability\">\n          availability: <i>{{ql.availability}}</i>\n        </span>\n      </div>\n  </div>\n</div>\n\n<div *ngIf=\"editing\">\n  <form #form=\"ngForm\">\n    <div class=\"form-group\">\n      <div style=\"display: inline-block; vertical-align: top; padding: .5em;\">            \n        <div><button (click)=\"updateProof(form.value)\">Save</button>\n             <button (click)=\"setEditMode(false)\">Cancel</button>\n        </div>\n      </div>\n      <div style=\"display: inline-block; vertical-align: top; padding: .5em;\">\n          <label for=\"nameField\">Proof Name:</label>\n          <input #name name=\"nameField\" [ngModel]=\"proof.name\">\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -853,8 +853,8 @@ var ProofComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("./src/environments/environment.ts");
-// This proofs service translates a component's request
-//   for proof-related data into the proper API
+// This proofs service translates a component's CRUD requests
+//   re: proof-related data into the proper API
 //   call expected by the back-end, and returns the JSON results
 //   to the requester.
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -888,6 +888,11 @@ var ProofService = /** @class */ (function () {
     };
     ProofService.prototype.deleteProof = function (id) {
         return this.http.delete(this.apiUrl + "/proofs/" + id);
+    };
+    // remove a qualified listener from a proof
+    ProofService.prototype.deleteListener = function (proofID, userID) {
+        return this.http.delete(this.apiUrl + "/proofs/"
+            + proofID + '/listeners/' + userID);
     };
     ProofService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
@@ -1021,6 +1026,8 @@ module.exports = "<!--\n    This HTML piece either displays the information abou
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__users_service__ = __webpack_require__("./src/app/users.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__presentations_service__ = __webpack_require__("./src/app/presentations.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__proofs_service__ = __webpack_require__("./src/app/proofs.service.ts");
 // This component is used to present a specific user's information
 //   and to provide RUD functionality on that user's record
 //   (not CRUD - the C is handled via the "newuser" component).
@@ -1035,9 +1042,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
 var UserComponent = /** @class */ (function () {
-    function UserComponent(userService) {
+    function UserComponent(userService, presentationService, proofService) {
         this.userService = userService;
+        this.presentationService = presentationService;
+        this.proofService = proofService;
         // When a user is deleted, send event to parent to refresh parent
         this.deletedUser = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
         // user's display preference
@@ -1061,12 +1072,82 @@ var UserComponent = /** @class */ (function () {
         });
     };
     // delete user using user service, notify parent component
+    //  AND remove user as qualified listener from all proofs
+    //  AND delete all presentations involving the user, 
     UserComponent.prototype.deleteUser = function () {
         var _this = this;
-        this.userService.deleteUser(this.user._id)
-            .subscribe(function (result) {
-            _this.deletedUser.emit();
-            _this.setEditMode(false);
+        var deleteU; // should we delete this user
+        var userID = this.user._id; // the user's ID
+        var qualified; // presentations that qualified user as listener
+        var others = []; // all other presentations
+        var numPres = 0; // total number of presentations
+        var message; // msg to current user
+        deleteU = true;
+        // before deleting a user, we need to see how many
+        //  presentations have been associated with that user.
+        this.presentationService.getPresentedConfirmed(userID)
+            .subscribe(function (results1) {
+            qualified = results1;
+            numPres = numPres + qualified.length;
+            _this.presentationService.getPresentedPending(userID)
+                .subscribe(function (results) {
+                others = results;
+                _this.presentationService.getPresentedDenied(userID)
+                    .subscribe(function (results) {
+                    others = others.concat(results);
+                    _this.presentationService.getListenedPending(userID)
+                        .subscribe(function (results) {
+                        others = others.concat(results);
+                        _this.presentationService.getListenedConfirmed(userID)
+                            .subscribe(function (results) {
+                            others = others.concat(results);
+                            numPres = numPres + others.length;
+                            if (numPres > 0) {
+                                message = "This user has been involved with "
+                                    + numPres + " presentations. "
+                                    + "Are you sure you want to delete this account?";
+                                if (!confirm(message)) {
+                                    deleteU = false;
+                                }
+                            }
+                            if (deleteU) {
+                                var _loop_1 = function (i) {
+                                    var proofID = qualified[i].proof._id;
+                                    _this.proofService
+                                        .deleteListener(proofID, userID)
+                                        .subscribe(function (result) {
+                                        console.log("No longer listener for proof "
+                                            + qualified[i].proof.name);
+                                    });
+                                };
+                                // remove from all qualified listener lists
+                                for (var i = 0; i < qualified.length; i++) {
+                                    _loop_1(i);
+                                }
+                                // delete ALL of user's presentations
+                                others = others.concat(qualified);
+                                var _loop_2 = function (j) {
+                                    _this.presentationService
+                                        .deletePresentation(others[j]._id)
+                                        .subscribe(function (result) {
+                                        console.log("Deleted presentation "
+                                            + others[j]._id);
+                                    });
+                                };
+                                for (var j = 0; j < others.length; j++) {
+                                    _loop_2(j);
+                                }
+                                // delete the user itself
+                                _this.userService.deleteUser(_this.user._id)
+                                    .subscribe(function (result) {
+                                    _this.deletedUser.emit();
+                                    _this.setEditMode(false);
+                                });
+                            }
+                        });
+                    });
+                });
+            });
         });
     };
     __decorate([
@@ -1082,9 +1163,11 @@ var UserComponent = /** @class */ (function () {
             selector: 'app-user',
             template: __webpack_require__("./src/app/user/user.component.html"),
             styles: [__webpack_require__("./src/app/user/user.component.css")],
-            providers: [__WEBPACK_IMPORTED_MODULE_1__users_service__["a" /* UserService */]]
+            providers: [__WEBPACK_IMPORTED_MODULE_1__users_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_2__presentations_service__["a" /* PresentationService */], __WEBPACK_IMPORTED_MODULE_3__proofs_service__["a" /* ProofService */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__users_service__["a" /* UserService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__users_service__["a" /* UserService */],
+            __WEBPACK_IMPORTED_MODULE_2__presentations_service__["a" /* PresentationService */],
+            __WEBPACK_IMPORTED_MODULE_3__proofs_service__["a" /* ProofService */]])
     ], UserComponent);
     return UserComponent;
 }());
@@ -1103,7 +1186,7 @@ module.exports = ""
 /***/ "./src/app/userdashboard/userdashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--\n    This is a main page which presents all of a user's own \n        presentation statuses to that user.\n    It differs depending on whether or not the user is a student\n        or course staff (Head or TA).\n\n    Heads and TAs never present, but they do listen to (and then approve\n        or deny) student presentations.  They also have access to the \n        list of all of the Proof Logger users and the list of all of\n        the proofs that students should present over the semester.\n\n    Students need to work their way through presenting all of the\n        proofs on the class's proofs list.  Each time a student\n        presents, the student needs to submit a request to the listener\n        to confirm/deny that presentation.  As presentations are\n        confirmed, the student's score rises.  As students become\n        qualified listeners for a proof and then listen to each other, \n        they also earn listening points.        \n-->\n\n<h2>Hello, {{ user.email }}</h2>\n\n<div *ngIf=\"user.status == 'Student'; else staffTemplate\">\n    <h2>Your Proofs</h2>\n    \n    <h3>Register a newly presented proof</h3>\n    \n    <div *ngIf=\"!adding\">\n        <button (click)=\"setAdding(true)\">Register New Presentation</button>\n    </div>\n    \n    <div *ngIf=\"adding\">\n        <app-newpresentation [user]=\"user\" \n                             [proofs]=\"proofs\"\n                             [qualifiedListeners]=\"staff\"\n                            (newPres)=\"updatePresented()\"\n                            (cancelNewPres)= \"setAdding(false)\">\n        </app-newpresentation>\n    </div>\n</div>\n\n<div *ngIf=\"num_listened_pending\">\n    <h3>Confirm listening</h3>\n\n    <app-presentation *ngFor='let presObj of listened_pending'\n                [presentation] = \"presObj\"\n                mode = \"listened_pending\" \n                (confirmed)=\"updateListened()\">\n    </app-presentation>\n\n</div>\n\n<div *ngIf=\"user.status == 'Student'\">\n\n    <div *ngIf=\"num_presented_denied\">\n        <h3>Denied Credit</h3>\n        <app-presentation *ngFor='let presObj of presented_denied'\n                    [presentation] = \"presObj\"\n                    mode = \"presented_denied\"\n                    (deleted)=\"updatePresentedDenied()\">\n        </app-presentation>\n    \n    </div>\n\n    <div *ngIf=\"num_presented_pending\">\n        <h3>Presented <i>(pending confirmation)</i></h3>\n    \n        <app-presentation *ngFor='let presObj of presented_pending'\n                    [presentation] = \"presObj\"\n                    mode = \"presented_pending\"\n                    (deleted)=\"updatePresentedPending()\">\n        </app-presentation>\n    \n    </div>\n    \n    <h3>Presented</h3>\n    <div *ngIf=\"num_presented_confirmed; else noneTemplate\">\n    \n        <app-presentation *ngFor='let presObj of presented_confirmed'\n                    [presentation] = \"presObj\"\n                    mode = \"presented_confirmed\">\n        </app-presentation>\n    \n    </div>\n</div>\n\n<h3>Listened to</h3>\n<div *ngIf=\"num_listened_confirmed; else noneTemplate\">\n\n    <app-presentation *ngFor='let presObj of listened_confirmed'\n                [presentation] = \"presObj\"\n                mode = \"listened_confirmed\">\n    </app-presentation>\n\n</div>\n\n<ng-template #staffTemplate>\n    <h2>Staff Dashboard</h2>\n\n    <h3>Course Management</h3>\n    <p><a routerLink=\"/users\">Class List</a></p>\n    <p><a routerLink=\"/proofs\">Proof List</a></p>\n</ng-template>\n\n<ng-template #noneTemplate>None</ng-template>\n\n"
+module.exports = "<!--\n    This is a main page which presents all of a user's own \n        presentation statuses to that user.\n    It differs depending on whether or not the user is a student\n        or course staff (Head or TA).\n\n    Heads and TAs never present, but they do listen to (and then approve\n        or deny) student presentations.  They also have access to the \n        list of all of the Proof Logger users and the list of all of\n        the proofs that students should present over the semester.\n\n    Students need to work their way through presenting all of the\n        proofs on the class's proofs list.  Each time a student\n        presents, the student needs to submit a request to the listener\n        to confirm/deny that presentation.  As presentations are\n        confirmed, the student's score rises.  As students become\n        qualified listeners for a proof and then listen to each other, \n        they also earn listening points.        \n-->\n\n<h2>Hello, {{ user.email }}</h2>\n\n<div *ngIf=\"user.status == 'Student'; else staffTemplate\">\n    <h2>Your Proofs</h2>\n    \n    <h3>Register a newly presented proof</h3>\n    \n    <div *ngIf=\"!adding\">\n        <button (click)=\"setAdding(true)\">Register New Presentation</button>\n    </div>\n    \n    <div *ngIf=\"adding\">\n        <app-newpresentation [user]=\"user\" \n                             [proofs]=\"proofs\"\n                             [qualifiedListeners]=\"staff\"\n                            (newPres)=\"updatePresented()\"\n                            (cancelNewPres)= \"setAdding(false)\">\n        </app-newpresentation>\n    </div>\n</div>\n\n<div *ngIf=\"num_listened_pending\">\n    <h3>Confirm listening</h3>\n\n    <app-presentation *ngFor='let presObj of listened_pending'\n                [presentation] = \"presObj\"\n                mode = \"listened_pending\" \n                (confirmed)=\"updateListened()\">\n    </app-presentation>\n\n</div>\n\n<div *ngIf=\"user.status == 'Student'\">\n\n    <div *ngIf=\"num_presented_denied\">\n        <h3>Denied Credit</h3>\n        <app-presentation *ngFor='let presObj of presented_denied'\n                    [presentation] = \"presObj\"\n                    mode = \"presented_denied\"\n                    (deleted)=\"updatePresentedDenied()\">\n        </app-presentation>\n    \n    </div>\n\n    <div *ngIf=\"num_presented_pending\">\n        <h3>Presented <i>(pending confirmation)</i></h3>\n    \n        <app-presentation *ngFor='let presObj of presented_pending'\n                    [presentation] = \"presObj\"\n                    mode = \"presented_pending\"\n                    (deleted)=\"updatePresentedPending()\">\n        </app-presentation>\n    \n    </div>\n    \n    <h3>Presented</h3>\n    <div *ngIf=\"num_presented_confirmed; else noneTemplate\">\n    \n        <app-presentation *ngFor='let presObj of presented_confirmed'\n                    [presentation] = \"presObj\"\n                    mode = \"presented_confirmed\">\n        </app-presentation>\n    \n    </div>\n</div>\n\n<h3>Listened to</h3>\n<div *ngIf=\"num_listened_confirmed; else noneTemplate\">\n\n    <app-presentation *ngFor='let presObj of listened_confirmed'\n                [presentation] = \"presObj\"\n                mode = \"listened_confirmed\">\n    </app-presentation>\n\n</div>\n\n<div *ngIf=\"user.status == 'Student'\">\n\n    <h3>Testing</h3>\n    \n    <p><i>For testing purposes only, this link is provided so that you may more     easily \"approve\" or \"deny\" just-submitted presentations:</i></p>\n    <a routerLink=\"/users\">Class List</a>\n\n</div>\n\n<ng-template #staffTemplate>\n    <h2>Staff Dashboard</h2>\n\n    <h3>Course Management</h3>\n    <p><a routerLink=\"/users\">Class List</a></p>\n    <p><a routerLink=\"/proofs\">Proof List</a></p>\n</ng-template>\n\n<ng-template #noneTemplate>None</ng-template>\n\n"
 
 /***/ }),
 
@@ -1360,8 +1443,8 @@ var UserDashboardComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("./src/environments/environment.ts");
-// This users service translates a component's request
-//   for user-related data into the proper API
+// This users service translates a component's CRUD requests
+//   re: user-related data into the proper API
 //   call expected by the back-end, and returns the JSON results
 //   to the requester.
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {

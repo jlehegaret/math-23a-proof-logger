@@ -11,7 +11,7 @@
      update his/her own availability later.
 -->
 
-<form #form="ngForm" (ngSubmit)="save(form)">
+<form #form="ngForm" (ngSubmit)="save(form)" autocomplete="off">
     <div style="display: inline-block; 
                 vertical-align: top; padding: 1em;">            
         <button type="submit">Save</button>
@@ -19,13 +19,18 @@
     </div>
 
     <div style="display: inline-block; vertical-align: top; padding: 1em;">
-      <div>
-        <label for="statusField">Status:</label>
-        <input name="statusField" placeholder="Head, TA, or Student" [(ngModel)]="user.status">
-      </div>
-      <div>
+      <span>
+        <label for="statusField">Role:</label>
+        <select name="statusField" [(ngModel)]="user.status">
+          <option>Head</option>
+          <option>TA</option>
+          <option selected>Student</option>
+        </select>
+      </span>
+      &nbsp;
+      <span>
         <label for="emailField">Email:</label>
-        <input name="emailField"  [(ngModel)]="user.email">
-      </div>
+        <input name="emailField"  type="email" [(ngModel)]="user.email">
+      </span>
     </div>
 </form>

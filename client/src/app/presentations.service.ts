@@ -1,5 +1,5 @@
-// This presentations service translates a component's request
-//   for presentation-related data into the proper API
+// This presentations service translates a component's CRUD requests
+//   re: presentation-related data into the proper API
 //   call expected by the back-end, and returns the JSON results
 //   to the requester.
 

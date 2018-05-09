@@ -30,10 +30,10 @@
   </div>
   <div style="display: inline-block; vertical-align: top; padding: .5em;">
       <div>{{ proof.qualifiedListeners.length }} listeners 
-        <span *ngIf="showListeners">
+        <span *ngIf="showListeners && proof.qualifiedListeners.length">
           <button (click)="setShowListenersMode(false)">Hide</button>
         </span>
-        <span *ngIf="!showListeners">
+        <span *ngIf="!showListeners && proof.qualifiedListeners.length">
           <button (click)="setShowListenersMode(true)">Show</button>
         </span>
       </div>

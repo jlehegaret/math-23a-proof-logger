@@ -27,6 +27,8 @@ The front-end is entirely Angular, with the Express back-end providing the API.
   
 I was very happy to discover the "populate" option in Mongoose.
 
+I do wish I could have provided the "login" capability, and all of the route restrictions and page adaptations that that would entail (based on the logged-in user's role) in time for this deadline, but I'll hope to figure out how to do that over the summer (and, for future students, I hope that it can fit into the core class curriculum next time around).  
+
 ## I hope that you enjoy the site!
 
 Jennifer LH
