@@ -31,4 +31,6 @@ I do wish I could have provided the "login" capability, and all of the route res
 
 ## I hope that you enjoy the site!
 
+Thank you so much for your time and for your help throughout the semester.
+
 Jennifer LH
